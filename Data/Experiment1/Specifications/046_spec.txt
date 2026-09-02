@@ -1,0 +1,13 @@
+module SmartReservoirManagement
+    var currentLevel, maxLevel, minLevel: real 
+    var drainageActive: boolean 
+    var log: sequence of string
+    process updateWaterLevel(changeAmount: real)
+        functional scenario form:
+        currentLevel <= maxLevel  && log = log ⨁ ("Water Level Updated: " + currentLevel + "m, Status Normal."), Water level updated successfully.
+        ||
+        currentLevel > maxLevel && drainageActive = true, log = log ⨁ ("Flood Risk Warning: " + currentLevel + "m, Activating Drainage."), Flood warning triggered, drainage activated.
+        ||
+        currentLevel < minLevel && drainageActive = false, log = log ⨁ ("Water Shortage Alert: " + currentLevel + "m, Implementing Conservation Measures."), Water shortage alert triggered, conservation measures applied.
+    end process
+end module

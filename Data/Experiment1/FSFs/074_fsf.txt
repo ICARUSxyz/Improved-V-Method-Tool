@@ -1,0 +1,5 @@
+            pm25 >= 75 && currentFanSpeed = maxFanSpeed, Fan Speed set to maximum.
+            ||
+            pm25 <= 35 && currentFanSpeed = minFanSpeed, Fan Speed set to minimum.
+            ||
+            35 < pm25 and pm25< 75 && currentFanSpeed = minFanSpeed + (maxFanSpeed - minFanSpeed) * ((pm25 - 35) / (75 - 35)), Fan Speed calculated by linear interpolation.

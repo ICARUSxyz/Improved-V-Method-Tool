@@ -1,0 +1,65 @@
+module PolynomialFunction
+type
+  c: sequence of real                 // input coefficients (c[0] is constant term)
+  coeffs: sequence of real            // internal stored coefficients (copy of c)
+  x: real                             // scalar evaluation point
+  y: real                             // scalar value result
+  deg: int                            // degree reported by degree()
+  d_coeffs: sequence of real          // coefficients of derivative polynomial
+  ex: set of {
+    None,
+    NullArgumentException,
+    NoDataException
+  }
+
+process Construct(c: sequence of real) result: coeffs: sequence of real, deg: int, ex: set of { ... }
+Functional Scenario Form
+  c < 0                                   && ex = NullArgumentException ||
+|c| = 0                        && ex = NoDataException ||
+|c| >= 1                        && (ex = None && coeffs = copy(c) && deg = |c| - 1)
+end_process
+
+
+process ValueAt(x: real, coeffs: sequence of real) result: y: real
+Functional Scenario Form
+  (|coeffs| = 1)                                && (y = coeffs[0]) or
+  (|coeffs| > 1 && x = 0)                       && (y = coeffs[0]) or
+  (exists i: 0≤i<|coeffs| . isNaN(coeffs[i]))   && (isNaN(y)) or
+  (isNaN(x))                                    && (isNaN(y)) or
+  (isFinite(x) && ∀i . isFinite(coeffs[i]))     && (y computed by Horner; may under/overflow per IEEE-754) or
+  (x = +∞ && leading_nonzero(coeffs) > 0)       && (y = +∞) or
+  (x = +∞ && leading_nonzero(coeffs) < 0)       && (y = -∞) or
+  (x = -∞ && highest_degree_is_even(coeffs) && leading_nonzero(coeffs) > 0)  && (y = +∞) or
+  (x = -∞ && highest_degree_is_even(coeffs) && leading_nonzero(coeffs) < 0)  && (y = -∞) or
+  (x = -∞ && highest_degree_is_odd(coeffs)  && leading_nonzero(coeffs) > 0)  && (y = -∞) or
+  (x = -∞ && highest_degree_is_odd(coeffs)  && leading_nonzero(coeffs) < 0)  && (y = +∞) or
+  (allZero(coeffs))                              && (y = 0.0 with IEEE-754 sign semantics)
+end_process
+
+
+process ValueAtDS(t: DerivativeStructure, coeffs: sequence of real) result: t_val: DerivativeStructure
+Functional Scenario Form
+  (t has NaN component)                          && (t_val is NaN DS) or
+  (exists i . isNaN(coeffs[i]))                  && (t_val is NaN DS) or
+  (otherwise)                                    && (t_val computed via Horner on DS; derivatives propagated)
+end_process
+
+
+process Degree(coeffs: sequence of real) result: deg: int
+Functional Scenario Form
+  (|coeffs| ≥ 1)                                 && (deg = |coeffs| - 1)
+end_process
+
+
+process Derivative(coeffs: sequence of real) result: d_coeffs: sequence of real
+Functional Scenario Form
+  (|coeffs| = 1)                                 && (d_coeffs = [0.0]) or
+  (|coeffs| > 1)                                 && (d_coeffs[k] = (k+1) * coeffs[k+1] for k = 0..|coeffs|-2)
+end_process
+
+
+process GetCoefficients(coeffs: sequence of real) result: out: sequence of real
+Functional Scenario Form
+  (true)                                         && (out = copy(coeffs))
+end_process
+end_module

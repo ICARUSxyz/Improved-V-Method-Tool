@@ -1,0 +1,3 @@
+        currentFlowRate >= minFlowRate && log = log ⨁ ("Flow Rate Updated: " + currentFlowRate + " L/min"), Flow rate updated successfully.
+        ||
+        currentFlowRate < minFlowRate && log = log ⨁ ("Low Flow Alert: " + currentFlowRate + " L/min, Possible Clogging or Low Pressure."), Low flow alert triggered, possible clogging.

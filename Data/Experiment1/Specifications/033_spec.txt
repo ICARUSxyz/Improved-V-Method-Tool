@@ -1,0 +1,12 @@
+module ReservoirWaterLevelMonitoring
+    var currentLevel, maxLevel, minLevel: real 
+    var levelLog: sequence of string 
+    process updateWaterLevel(changeAmount: real)
+        functional scenario form:
+        currentLevel <= maxLevel && levelLog = levelLog ⨁ ("Water Level Updated: " + currentLevel + "m"), Water level updated successfully.
+        ||
+        currentLevel > maxLevel && levelLog = levelLog ⨁ ("Overflow Warning: " + currentLevel + "m, Immediate Water Release Required."), Overflow warning triggered, immediate action required.
+        ||
+        currentLevel < minLevel && levelLog = levelLog ⨁ ("Drought Alert: " + currentLevel + "m, Water Conservation Recommended."), Drought risk alert triggered, water conservation recommended.
+    end process
+end module

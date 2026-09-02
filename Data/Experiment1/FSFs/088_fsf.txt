@@ -1,0 +1,3 @@
+            currentFrostThickness > defrostThreshold && defrostCycleActive = true, output "Frost thickness high: " + currentFrostThickness + " mm. Defrost cycle activated.", Defrost cycle activated.
+            ||
+            currentFrostThickness <= defrostThreshold && defrostCycleActive = false, output "Frost thickness normal: " + currentFrostThickness + " mm. No defrost needed.", No defrost cycle triggered.

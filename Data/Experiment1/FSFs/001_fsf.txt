@@ -1,0 +1,13 @@
+		a > 0  and b > 0 and c > 0 and a + b > c and a + c > b and b + c > a && flag = true, A validated triangle，the sum of any two sides is greater than the third side
+		||
+		a <= 0 && flag = false, Not a validated triangle 
+		||
+		b <= 0 && flag = false, Not a validated triangle
+		||
+		c <= 0 && flag = false, Not a validated triangle
+||
+		a + b <= c && flag = false, Not a validated triangle
+		||
+		a + c <= b && flag = false, Not a validated triangle
+		||
+		b + c <= a && flag = false, Not a validated triangle	

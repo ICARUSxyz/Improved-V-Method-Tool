@@ -1,0 +1,17 @@
+  x = 0
+        && ex = NullArgumentException ||
+  length = 0 
+        && ex = NoDataException ||
+  length< 2
+        && ex = NumberIsTooSmallException ||
+
+  rows=0        && ex = DimensionMismatchException ||
+
+x < k+1
+        && ex = NonMonotonicSequenceException ||
+y < k+1
+        && ex = NonMonotonicSequenceException ||
+isFinite=0
+        && ex = NotFiniteNumberException ||
+ isFinitey=0        && ex = NotFiniteNumberException ||
+isFinite=1 && ex = None

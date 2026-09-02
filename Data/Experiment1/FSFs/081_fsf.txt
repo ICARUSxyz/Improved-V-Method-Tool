@@ -1,0 +1,5 @@
+        currentTemperature < minTemperature && burnerActive = true, Burner activated.
+        ||
+        currentTemperature > maxTemperature && burnerActive = false, Burner deactivated.
+        ||
+        currentTemperature <= maxTemperature && burnerActive = false, Burner remains off.

@@ -1,0 +1,5 @@
+        currentAQI >= hazardousAQIThreshold && fanSpeed = 2, output "ALERT: Hazardous air quality (" + currentAQI + "). Fan speed set to HIGH.", Fan speed set to HIGH; hazard alert issued.
+        ||
+        currentAQI < hazardousAQIThreshold && fanSpeed = 2, output "WARNING: Poor air quality (" + currentAQI + "). Fan speed increased.", Fan speed increased.
+        ||
+        currentAQI <= normalAQIThreshold && fanSpeed = 1, output "Air quality is good (" + currentAQI + "). Operating at normal speed.", Fan speed remains normal.

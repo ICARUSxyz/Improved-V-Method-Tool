@@ -1,0 +1,10 @@
+module FuelEfficiencySystemEx
+    var distance, fuelUsed, efficiency, efficiencyThreshold: real
+    var consumptionLog: sequence of string 
+    process recordTrip(distance: real, fuelUsed: real)
+       functional scenario form:
+        efficiency >= efficiencyThreshold && consumptionLog = consumptionLog ⨁ ("Low Efficiency Warning: " + efficiency), Efficiency recorded successfully.
+        ||
+        efficiency < efficiencyThreshold && consumptionLog = consumptionLog ⨁ ("Efficiency Recorded: " + efficiency), Low efficiency warning triggered.
+    end process
+end module

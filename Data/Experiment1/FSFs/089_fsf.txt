@@ -1,0 +1,3 @@
+        decelerationRate >= regenThreshold && recoveredEnergy = currentSpeed * decelerationRate * efficiencyFactor, output "Deceleration: " + decelerationRate + " km/h/s exceeds threshold " + regenThreshold + " km/h/s. Recovered Energy: " + recoveredEnergy + " kWh.", Regenerative braking activated and energy recovered calculated.
+        ||
+        decelerationRate < regenThreshold && recoveredEnergy = 0, output "Deceleration: " + decelerationRate + " km/h/s below threshold " + regenThreshold + " km/h/s. No energy recovery.", No regenerative braking; energy recovery is 0.

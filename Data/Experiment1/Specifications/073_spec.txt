@@ -1,0 +1,8 @@
+module SmartCoffeeMachineControl
+    var currentTemperature, targetTemperature, brewTime, coffeeStrength: real
+    process updateBrewConditions(tempChange: real, strengthChange: real) returns (brewTime: real, coffeeStrength: real)
+functional scenario form:
+            currentTemperature < targetTemperature && brewTime = brewTime * 1.1
+            currentTemperature > targetTemperature && brewTime = brewTime * 0.9, output "Updated Conditions: Temperature = " + currentTemperature + "°C, Coffee Strength = " + coffeeStrength + ", Brew Time = " + brewTime + " minutes"
+    end process
+end module

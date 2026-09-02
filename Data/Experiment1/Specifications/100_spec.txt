@@ -1,0 +1,12 @@
+module SmartGasStoveControl
+    var currentFlameIntensity, minFlameIntensity, maxFlameIntensity: real
+    var gasFlowRate: real
+    process updateFlameIntensity(newIntensity: real) returns (currentFlameIntensity: real, gasFlowRate: real)    
+        functional scenario form:
+        currentFlameIntensity < minFlameIntensity && gasFlowRate = gasFlowRate * 1.2, output "ALERT: Flame intensity (" + currentFlameIntensity + ") is too low. Increasing gas flow to " + gasFlowRate + " L/min.", Gas flow increased by 20%.
+        ||
+        currentFlameIntensity > maxFlameIntensity && gasFlowRate = gasFlowRate * 0.8, output "ALERT: Flame intensity (" + currentFlameIntensity + ") is too high. Decreasing gas flow to " + gasFlowRate + " L/min.", Gas flow decreased by 20%.
+        ||
+        currentFlameIntensity >= minFlameIntensity && output "Flame intensity (" + currentFlameIntensity + ") is optimal. Gas flow remains at " + gasFlowRate + " L/min.", No adjustment to gas flow.
+    end process
+end module

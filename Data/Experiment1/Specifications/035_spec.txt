@@ -1,0 +1,17 @@
+module ElevatorLoadAndEnergyOptimization
+    var currentLoad, maxLoad, energyUsage, energyThreshold, travelDistance: real 
+    var log: sequence of string 
+    process enterElevator(weight: real)
+        functional scenario form:
+        currentLoad <= maxLoad && log = log ⨁ ("Load Updated: " + currentLoad + " kg"), Passenger entered, load updated.
+        ||
+        currentLoad > maxLoad && log = log ⨁ ("Overload Warning: " + currentLoad + " kg, Reduce Load Immediately."), Overload warning triggered, reduce load.
+    end process
+
+    process calculateEnergyUsage(travelDistance: real)
+        functional scenario form:
+        (energyUsage ≤ energyThreshold) && log = log ⨁ ("Energy Consumption Recorded: " + energyUsage + " kWh"), Energy usage recorded successfully.
+        OR
+        (energyUsage > energyThreshold) && log = log ⨁ ("High Energy Usage Alert: " + energyUsage + " kWh, Consider Load Optimization.") High energy usage alert triggered, consider optimization.
+    end process
+end module

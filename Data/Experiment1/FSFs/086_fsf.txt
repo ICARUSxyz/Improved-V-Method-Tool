@@ -1,0 +1,3 @@
+        currentPayload <= maxPayload && currentFlightSpeed = baseFlightSpeed * (1 - 0.5 * (currentPayload / maxPayload)), Flight speed is adjusted according to payload.
+        ||
+        currentPayload > maxPayload && currentFlightSpeed = 0, Overload warning triggered, flight speed set to 0.

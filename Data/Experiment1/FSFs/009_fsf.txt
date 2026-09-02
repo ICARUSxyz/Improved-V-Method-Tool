@@ -1,0 +1,5 @@
+        trafficDensity > 80 and trafficDensity <= 100 && greenTime = 45, High traffic! Green time updated to 45 seconds.
+        ||
+        trafficDensity > 50 and trafficDensity <= 100  && greenTime = 30, Moderate traffic! Green time updated to 30 seconds.
+        ||
+        trafficDensity <= 50 and trafficDensity >= 0 && greenTime = 15 Low traffic! Green time updated to 15 seconds.

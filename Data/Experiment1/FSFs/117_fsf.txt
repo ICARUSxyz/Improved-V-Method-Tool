@@ -1,0 +1,3 @@
+        efficiency >= efficiencyThreshold && consumptionLog = consumptionLog ⨁ ("Low Efficiency Warning: " + efficiency), Efficiency recorded successfully.
+        ||
+        efficiency < efficiencyThreshold && consumptionLog = consumptionLog ⨁ ("Efficiency Recorded: " + efficiency), Low efficiency warning triggered.

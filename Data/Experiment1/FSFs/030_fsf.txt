@@ -1,0 +1,5 @@
+        currentPower >= minPower && powerLog = powerLog ⨁ ("Power Updated: " + currentPower + " kW"), Power output updated successfully.
+        ||
+        currentPower > maxPower && powerLog = powerLog ⨁ ("Overload Warning: " + currentPower + " kW, Emergency Shutdown Recommended."), Overload warning triggered, shutdown recommended.
+        ||
+        currentPower < minPower && powerLog = powerLog ⨁ ("Low Efficiency Alert: " + currentPower + " kW, Maintenance Recommended."), Low efficiency alert triggered, maintenance recommended.

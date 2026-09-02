@@ -1,0 +1,3 @@
+        newPosition - currentPosition = a && isMoving = true, currentPosition = newPosition, log = log ⨁ ("AGV moved from Position " + currentPosition + " to " + newPosition), AGV moved successfully.
+        ||
+        newPosition = currentPosition && log = log ⨁ ("AGV already at Position " + newPosition), No movement needed.

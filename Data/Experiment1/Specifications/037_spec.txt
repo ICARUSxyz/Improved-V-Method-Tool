@@ -1,0 +1,12 @@
+module SmartTransformerMonitoring
+    var currentLoad, maxCurrent, minCurrent: real 
+    var log: sequence of string 
+    process updateCurrent(changeAmount: real)
+        functional scenario form:
+        currentLoad <= maxCurrent  && log = log ⨁ ("Current Load Updated: " + currentLoad + " A"), Current load updated successfully.
+        ||
+        currentLoad > maxCurrent && log = log ⨁ ("Overload Warning: " + currentLoad + " A, Risk of Transformer Damage."), Overload warning triggered, transformer at risk.
+        ||
+        currentLoad < minCurrent && log = log ⨁ ("Underload Alert: " + currentLoad + " A, Possible Fault or Disconnection."), Underload alert triggered, possible fault detected.
+    end process
+end module

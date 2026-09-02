@@ -1,0 +1,5 @@
+currentEnergyUsage >= minEfficiencyThreshold && log = log ⨁ ("Energy Usage Updated: " + currentEnergyUsage + " kWh, Status Normal."), Energy usage updated successfully.
+        ||
+        currentEnergyUsage > maxEnergyThreshold && powerSavingMode = true, log = log ⨁ ("High Energy Warning: " + currentEnergyUsage + " kWh, Activating Power-Saving Mode."), High energy warning triggered, power-saving mode activated.
+        ||
+        currentEnergyUsage < minEfficiencyThreshold && powerSavingMode = false, log = log ⨁ ("Low Efficiency Alert: " + currentEnergyUsage + " kWh, Optimizing Machine Operation."),  Low efficiency alert triggered, machine optimization applied.

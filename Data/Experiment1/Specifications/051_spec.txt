@@ -1,0 +1,17 @@
+module SmartWarehouseEnvironmentMonitoring
+    var currentTemperature, maxTemperature, minTemperature, currentHumidity, maxHumidity, minHumidity: real 
+    var coolingActive, dehumidifierActive: boolean 
+    var log: sequence of string 
+    process updateEnvironment(tempChange: real, humidityChange: real)
+        functional scenario form:
+        currentTemperature <= maxTemperature       && Environment conditions updated successfully.
+        ||
+        currentTemperature > maxTemperature && coolingActive = true,                log = log ⨁ ("Overheating Warning: " + currentTemperature + "°C, Cooling System Activated."), Overheating warning triggered, cooling system activated.
+        ||
+        currentTemperature < minTemperature && log = log ⨁ ("Low Temperature Alert: " + currentTemperature + "°C, Heating System Activated."), Low temperature alert triggered, heating system activated.
+        ||
+        currentHumidity > maxHumidity && dehumidifierActive = true, log = log ⨁ ("High Humidity Warning: " + currentHumidity + "%, Dehumidifier Activated."), High humidity warning triggered, dehumidifier activated.
+        ||
+        currentHumidity < minHumidity && log = log ⨁ ("Low Humidity Alert: " + currentHumidity + "%, Humidifier Activated."), Low humidity alert triggered, humidifier activated.
+    end process
+end module

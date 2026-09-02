@@ -1,0 +1,12 @@
+module IndustrialSteamPressureMonitoring
+    var currentPressure, maxPressure, minPressure: real 
+    var log: sequence of string 
+    process updatePressure(changeAmount: real)
+        functional scenario form:
+currentPressure >= minPressure && log = log ⨁ ("Steam Pressure Updated: " + currentPressure + " bar"), Steam pressure updated successfully.
+        ||
+        currentPressure > maxPressure && log = log ⨁ ("Overpressure Warning: " + currentPressure + " bar, Risk of System Failure."), Overpressure warning triggered, risk of failure.
+        ||
+        currentPressure < minPressure && log = log ⨁ ("Leakage Alert: " + currentPressure + " bar, Efficiency Loss Risk."), Leakage alert triggered, potential efficiency loss.
+    end process
+end module

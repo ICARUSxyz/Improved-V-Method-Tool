@@ -1,0 +1,3 @@
+        currentTraffic <= maxTraffic && log = log ⨁ ("Low Traffic: Closing Unused Lanes."), Vehicles entered, lanes adjusted.
+        ||
+        currentTraffic > maxTraffic && log = log ⨁ ("Heavy Congestion Alert: Additional Lanes Opened."), Heavy congestion warning triggered, opening additional lanes.

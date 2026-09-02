@@ -1,0 +1,3 @@
+  c < 0                                   && ex = NullArgumentException ||
+|c| = 0                        && ex = NoDataException ||
+|c| >= 1                        && (ex = None && coeffs = copy(c) && deg = |c| - 1)

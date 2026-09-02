@@ -1,0 +1,3 @@
+        energyUsed <= maxAllowedUsage && energyLog = energyLog ⨁ ("Usage Recorded: " + energyUsed + " kWh"), Energy usage recorded successfully.
+        ||
+        energyUsed > maxAllowedUsage && energyLog = energyLog ⨁ ("Overuse Warning: " + energyUsed + " kWh"), Overuse warning triggered.

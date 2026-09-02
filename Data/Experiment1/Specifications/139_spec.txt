@@ -1,0 +1,40 @@
+module FieldBracketingNthOrderBrentSolver
+ type
+    maxEval: integer
+    relAcc, absAcc, fAcc: integer       // tolerances in the same field
+    maxOrder: integer             // interpolation order (e.g., 2..5)
+    ex: set of { None, NullArgument, BadSequence, NoBracketing, TooManyEvaluations,
+          InvalidOrder, NotANumber }
+
+process solve(f, min, max, start?, maxEval, relAcc, absAcc, fAcc, maxOrder: integer) r: integer, ex: set of { None, NullArgument, BadSequence, NoBracketing, TooManyEvaluations, InvalidOrder, NotANumber }
+    functional scenario form:
+    f = 0                       && ex = NullArgument
+    || min = 0     && ex = NullArgument
+    || relAcc = 0 && ex = NullArgument
+    || maxOrder > 5   && ex = InvalidOrder
+    || min >= max                     && ex = BadSequence
+    || isNaN=1      && ex = NotANumber
+    ||
+    bracketed=0                     && ex = NoBracketing
+    ||
+    yMin = 0                         && ex = None && r = min
+    || yMax = 0                      && ex = None && r = max
+    ||
+ yStart = 0                    && ex = None && r = start
+    || yStart* yMin < 0 && ex = None && r ∈ (min, start] and abs(f(r)) <= fAcc
+    || yStart * yMax < 0 && ex = None && r ∈ [start, max) and abs(f(r)) <= fAcc
+    ||
+b - a <= tol
+        && ex = None && r = xNew
+    ||
+
+abs <= fAcc          && ex = None && r = xSafe
+    ||
+fa=0        && ex = None
+        && r ∈ [a', b']        // continues until a termination condition above holds
+    ||
+    evaluations > maxEval            && ex = TooManyEvaluations
+
+end process
+
+end module

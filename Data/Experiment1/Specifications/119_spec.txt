@@ -1,0 +1,12 @@
+module LiquidLevelMonitoringEx
+    var currentLevel, maxLevel, minLevel: real 
+    var levelLog: sequence of string 
+    process updateLevel(changeAmount: real)
+        functional scenario form:
+        currentLevel >= minLevel && levelLog = levelLog ⨁ ("Level Updated: " + currentLevel + " L"), Liquid level updated successfully.
+        ||
+        currentLevel > maxLevel && levelLog = levelLog ⨁ ("Overflow Warning: " + currentLevel + " L"), Overflow warning triggered.
+        ||
+        currentLevel < minLevel && levelLog = levelLog ⨁ ("Low Level Alert: " + currentLevel + " L"), Low level alert triggered.
+    end process
+end module

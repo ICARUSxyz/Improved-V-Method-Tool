@@ -1,0 +1,83 @@
+Module SYSTEM_TICKET;
+
+Const
+  MIN_PRICE = 1.0;      /* Minimum valid ticket price */
+
+type
+  Age        = nat0;     /* Passenger age, non-negative integer */
+  Money      = real;     /* Ticket price, may contain decimals */
+  TicketType = { adult,        /* 18 < age < 60, full price */
+                 child,        /* 0 <= age <= 12, half price */
+                 teen,         /* 12 < age <= 18, 75% price */
+                 senior_60_69, /* 60 <= age < 70, 75% price */
+                 senior_70_79, /* 70 <= age < 80, half price */
+                 free          /* age >= 80, free */
+               };
+
+var
+  ext #output_device: seq of universal; /* Abstract output device for UI or print */
+
+inv
+  true;
+
+behav Ticket_Sales_CDFD;
+
+process Buy_Ticket(age: int, normal_price: real)
+  final_price: real | ticket_type: TicketType
+
+post
+  if normal_price >= MIN_PRICE and age >= 0 
+then age > 18 and age < 60 and normal_price >= MIN_PRICE and
+      final_price = normal_price and ticket_type = adult
+or age >= 80 and normal_price >= MIN_PRICE and
+      final_price = normal_price * 0 and ticket_type = free
+or age >= 0 and age <= 12 and normal_price >=MIN_PRICE and
+      final_price = normal_price * 0.5 and ticket_type = child
+or age >= 70 and age < 80 and normal_price >= MIN_PRICE and
+      final_price = normal_price * 0.5 and ticket_type = senior_70_79
+or age > 12 and age <= 18 and normal_price >= MIN_PRICE and
+      final_price = normal_price * 0.75 and ticket_type = teen
+or age >= 60 and age < 70 and normal_price >= MIN_PRICE and
+      final_price = normal_price * 0.75 and ticket_type = senior_60_69
+ else
+    other s: undefined
+
+explicit
+  skip
+
+comment
+  - This process implements the core pricing and ticket type decision logic.
+end_process;
+
+process Display_Ticket_Info(final_price: real | ticket_type: TicketType)
+ext wr output_device
+pre true
+post
+  bound(final_price)  and output_device = conc(~output_device, [final_price]) or
+  bound(ticket_type)  and output_device = conc(~output_device, [ticket_type])
+explicit
+  if bound(final_price) 
+then output_device := conc(~output_device, [final_price])
+  elseif bound(ticket_type) then output_device := conc(~output_device, [ticket_type])
+  end
+comment
+  Output ticket information (price or type) to the device.
+end_process;
+
+process Display_Message(warning: String | error_msg: String)
+ext wr output_device
+post
+  bound(warning)   and output_device = conc(~output_device, [warning]) or
+  bound(error_msg) and output_device = conc(~output_device, [error_msg])
+explicit
+  if bound(warning) 
+then
+    output_device := conc(~output_device, [warning])
+  else
+    output_device := conc(~output_device, [error_msg])
+  end
+comment
+  Output warnings or error messages for abnormal or boundary cases.
+end_process;
+
+end_module;

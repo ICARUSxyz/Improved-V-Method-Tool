@@ -1,0 +1,9 @@
+module SmartConveyorBeltControl
+    var currentLoad, loadThreshold, optimalSpeed, currentSpeed: real
+    process updateLoad(newLoad: real) returns (currentLoad: real, currentSpeed: real)
+        functional scenario form:
+        currentLoad > loadThreshold && currentSpeed = optimalSpeed * 0.8, output "ALERT: Load (" + currentLoad + " kg) exceeds threshold (" + loadThreshold + " kg). Speed reduced to " + currentSpeed + " m/s.", Conveyor belt speed adjusted to reduced value.
+        ||
+        currentLoad <= loadThreshold && currentSpeed = optimalSpeed, output "Load (" + currentLoad + " kg) is within safe limits. Speed maintained at " + currentSpeed + " m/s.", Conveyor belt speed remains optimal.
+    end process
+end module

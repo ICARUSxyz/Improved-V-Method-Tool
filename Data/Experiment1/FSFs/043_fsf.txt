@@ -1,0 +1,3 @@
+        currentPassengers + numPassengers <= maxCapacity && currentPassengers = currentPassengers + numPassengers, adjustTurnstiles(),log = log ⨁ ("Entry: " + numPassengers + " passengers | New Count: " + currentPassengers + " | Open Turnstiles: " + openTurnstiles), Passengers entered, turnstile count adjusted.
+        ||
+        currentPassengers + numPassengers > maxCapacity && log = log ⨁ ("Overcrowding Alert: Entry Restricted."), Overcrowding alert triggered, entry restricted.

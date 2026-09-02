@@ -1,0 +1,9 @@
+module SmartWashingMachineControl
+    var currentLoad, maxCapacity, baseCycleTime, waterPerKg, calculatedCycleTime, calculatedWaterUsage: real
+    process setLoad(load: real) returns (calculatedCycleTime: real, calculatedWaterUsage: real)
+        functional scenario form:
+        currentLoad <= maxCapacity && calculatedCycleTime = baseCycleTime + (currentLoad / maxCapacity) * baseCycleTime, calculatedWaterUsage = currentLoad * waterPerKg, output "Load accepted: " + currentLoad + " kg, Cycle Time: " + calculatedCycleTime + " minutes, Water Usage: " + calculatedWaterUsage + " liters", Optimal cycle and water usage calculated.
+        ||
+        currentLoad > maxCapacity && calculatedCycleTime = 0, calculatedWaterUsage = 0, output "WARNING: Load exceeds maximum capacity.", Overload warning triggered, outputs zero values.
+    end process
+end module

@@ -1,0 +1,13 @@
+module SmartIrrigationSystem
+    var currentMoisture, moistureThreshold, temperature, maxWaterPerSession, waterToApply: real 
+    var cropType: string 
+    var irrigationLog: sequence of string 
+    process irrigateField(cropType: string, currentMoisture: real, temperature: real) waterToApply: real
+        functional scenario form:
+        cropType notin(1,2,3) && Error: Unknown crop type.
+        ||
+        currentMoisture >= moistureThreshold && waterToApply = 0, irrigationLog = irrigationLog ⨁ ("Irrigation Skipped: " + cropType), No irrigation needed.
+        ||
+        currentMoisture < moistureThreshold && waterToApply = min(cropWaterNeeds[cropType] * (1 + (temperature - 25) * 0.02), maxWaterPerSession), irrigationLog = irrigationLog ⨁ ("Irrigation Applied: " + cropType), Irrigation applied with calculated water amount.
+    end process
+end module

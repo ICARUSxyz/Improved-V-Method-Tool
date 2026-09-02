@@ -1,0 +1,16 @@
+module ElevatorLoadMonitoring
+    var maxCapacity, currentLoad: real 
+    var passengerCount: integer 
+    var tripLog: sequence of string 
+    process enterElevator(passenger: string, weight: real)
+        functional scenario form:
+        currentLoad <= maxCapacity && tripLog = tripLog ⨁ ("Overload Alert: " + passenger), Passenger entered, load updated.
+        ||
+        currentLoad > maxCapacity && tripLog = tripLog ⨁ ("Passenger Entered: " + passenger), Overload detected, alert triggered.
+    end process
+
+    process completeTrip()
+        functional scenario form:
+        (passengerCount ≥ 0) && tripLog = tripLog ⨁ ("Trip Completed | Final Load: " + currentLoad), currentLoad = 0，passengerCount = 0， Elevator trip completed, load reset.
+    end process
+end module

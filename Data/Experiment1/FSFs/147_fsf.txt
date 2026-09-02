@@ -1,0 +1,5 @@
+  nPts < 2                                  && ex = NumberIsTooSmallException ||
+  h <= 0                                    && ex = NotStrictlyPositiveException ||
+  a >= b                                    && ex = NumberIsTooLargeException ||
+  nPts * h > b - a                 && ex = NumberIsTooLargeException ||
+  nPts>100                         && (ex = None && span = (nPts - 1) * h)

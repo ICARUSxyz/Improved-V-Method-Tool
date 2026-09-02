@@ -1,0 +1,5 @@
+        newTemp < minTemp && flag = true and temperatureLog = temperatureLog ⨁ ("Heating system activated."), Temperature too low! Heating activated.
+        ||
+        newTemp > maxTemp && flag = true and temperatureLog = temperatureLog ⨁ ("Cooling system activated."), Temperature too high! Cooling activated.
+      ||
+        newTemp >= minTemp  && Temperature stable, no action required.

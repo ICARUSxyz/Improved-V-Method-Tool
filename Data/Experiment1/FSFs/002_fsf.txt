@@ -1,0 +1,7 @@
+amount <= accountBalance && flag =true, Valid withdrawal, amount meets all conditions 
+|| 
+amount > accountBalance && flag = false, Invalid withdrawal, insufficient account balance 
+|| 
+amount <= 0 && flag = false, Invalid withdrawal, amount must be greater than zero
+|| 
+accountBalance<= 0 && flag = false, Invalid withdrawal, balance must be greater than zero

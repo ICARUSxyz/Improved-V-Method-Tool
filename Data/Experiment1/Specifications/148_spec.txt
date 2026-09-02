@@ -1,0 +1,80 @@
+module BicubicInterpolatingFunction
+type
+  Nx, Ny: int
+  X, Y: real                   
+  Z: real                      
+  i, j: int                    
+  tx, ty: real                  
+  ex: set of {
+    None,
+    NullArgumentException,
+    NoDataException,
+    NumberIsTooSmallException,
+    DimensionMismatchException,
+    NonMonotonicSequenceException,
+    NotFiniteNumberException,
+    OutOfRangeException
+  }
+
+process Construct(x, y, f, fx, fy, fxy) result: (ex: set)
+Functional Scenario Form
+  x = 0
+        && ex = NullArgumentException ||
+  length = 0 
+        && ex = NoDataException ||
+  length< 2
+        && ex = NumberIsTooSmallException ||
+
+  rows=0        && ex = DimensionMismatchException ||
+
+x < k+1
+        && ex = NonMonotonicSequenceException ||
+y < k+1
+        && ex = NonMonotonicSequenceException ||
+isFinite=0
+        && ex = NotFiniteNumberException ||
+ isFinitey=0        && ex = NotFiniteNumberException ||
+isFinite=1 && ex = None
+end_process
+
+
+process LocateCell(X, Y) result: (i: int, j: int, tx: real, ty: real, ex: set)
+Functional Scenario Form
+  (not isFinite(X) or not isFinite(Y))
+        && (ex = NotFiniteNumberException) or
+  (X < x[0] or X > x[Nx-1] or Y < y[0] or Y > y[Ny-1])
+        && (ex = OutOfRangeException) or
+  (X = x[Nx-1] and Nx≥2) && (i = Nx-2; 0 ≤ j ≤ Ny-2; tx = 1.0; ty ∈ [0,1]; ex = None) or
+  (Y = y[Ny-1] and Ny≥2) && (j = Ny-2; 0 ≤ i ≤ Nx-2; ty = 1.0; tx ∈ [0,1]; ex = None) or
+  (x[i] ≤ X < x[i+1] and y[j] ≤ Y < y[j+1] for some i∈[0..Nx-2], j∈[0..Ny-2])
+        && (tx = (X - x[i]) / (x[i+1] - x[i]);
+            ty = (Y - y[j]) / (y[j+1] - y[j]); ex = None)
+end_process
+
+
+process Value(X, Y) result: (Z: real, ex: set)
+Functional Scenario Form
+  (LocateCell(X, Y) yields ex ≠ None) && (ex = that ex) or
+
+  (LocateCell ok and all 16 finite:
+      F00=f[i][j],   F10=f[i+1][j],   F01=f[i][j+1],   F11=f[i+1][j+1],
+      Fx00=fx[i][j], Fx10=fx[i+1][j], Fx01=fx[i][j+1], Fx11=fx[i+1][j+1],
+      Fy00=fy[i][j], Fy10=fy[i+1][j], Fy01=fy[i][j+1], Fy11=fy[i+1][j+1],
+      Fxy00=fxy[i][j],...,Fxy11=fxy[i+1][j+1])
+        && (ex = None
+            && Z = BicubicHermite(tx,ty; F**,Fx**,Fy**,Fxy**)
+           ) or
+  (LocateCell ok and any of 16 values non-finite) && (ex = NotFiniteNumberException)
+end_process
+
+
+process PartialX(X, Y) result: (Zx: real, ex: set)
+Functional Scenario Form
+  ex = None && Zx = ∂/∂x of BicubicHermite at (tx,ty) scaled by Δx = x[i+1]-x[i]
+end_process
+
+process PartialY(X, Y) result: (Zy: real, ex: set)
+Functional Scenario Form
+  ex = None && Zy = ∂/∂y of BicubicHermite at (tx,ty) scaled by Δy = y[j+1]-y[j]
+end_process
+end_module

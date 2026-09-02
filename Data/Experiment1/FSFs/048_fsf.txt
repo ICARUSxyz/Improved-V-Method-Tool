@@ -1,0 +1,5 @@
+        ambientLight > 500 && Brightness reduced for energy saving.
+        ||
+        ambientLight <= 500 and motionDetected=0 && Brightness increased for safety.
+        ||
+        ambientLight <= 500 and motionDetected=1 && Brightness set to medium level.

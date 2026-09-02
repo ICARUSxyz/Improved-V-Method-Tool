@@ -1,0 +1,87 @@
+module MicrosphereProjectionInterpolator
+type
+  d: int                       // problem dimension (number of coordinates)
+  elements: int                // number of microsphere surface elements
+  maxDarkFraction: real        // fraction of "dark" facets allowed
+  darkThreshold: real          // illumination threshold
+  brightnessExponent: real     // weighting exponent
+  sphereRadius: real           // microsphere radius (scale)
+  background: real             // fallback value when illumination is too low
+  sharedSphere: Boolean        // whether to reuse the microsphere instance
+
+  // Samples for interpolation
+  X: sequence of sequence of real   // size n × d (scattered sites)
+  Y: sequence of real               // size n
+  n: int
+
+  // Query point
+  p: sequence of real               // size d
+
+  ex: set of {
+    None,
+    NullArgumentException,
+    NoDataException,
+    DimensionMismatchException,
+    NumberIsTooSmallException,
+    NotFiniteNumberException,
+    NotPositiveException,
+    NotStrictlyPositiveException,
+    OutOfRangeException
+  }
+
+process Construct(d, elements, maxDarkFraction, darkThreshold,
+                  brightnessExponent, sphereRadius, background: real,
+                  sharedSphere: Boolean) outputs: ex: set
+Functional Scenario Form
+  d < 1                                           && ex = NumberIsTooSmallException ||
+ elements < d + 1                && ex = NumberIsTooSmallException ||
+  maxDarkFraction < 0      && ex = OutOfRangeException ||
+darkThreshold > 1          && ex = OutOfRangeException ||
+  brightnessExponent <= 0                          && ex = NotStrictlyPositiveException ||
+  sphereRadius <= 0                                && ex = NotStrictlyPositiveException ||
+finite=0                        && ex = NotFiniteNumberException ||
+finite=1                                   && ex = None
+end_process
+
+
+process Interpolate(X: sequence of sequence of real,
+                    Y: sequence of real) outputs: ex: set
+Functional Scenario Form
+  (X = null or Y = null)                            && (ex = NullArgumentException) or
+
+  (|X| = 0 or |Y| = 0)                              && (ex = NoDataException) or
+
+  (|X| ≠ |Y|)                                       && (ex = DimensionMismatchException) or
+
+  // Each row non-null and width equals d
+  (∃ i • i ∈ 0..|X|-1 ∧ (X[i] = null or |X[i]| ≠ d))
+                                                    && (ex = DimensionMismatchException) or
+
+  // Configured dimension consistency (if the implementation stores 'd')
+  (d ≥ 1 ∧ |X| ≥ 1 ∧ |X[0]| ≠ d)                    && (ex = DimensionMismatchException) or
+
+  // Need at least d+1 scattered sites to interpolate in d-D
+  (|X| < d + 1)                                     && (ex = NumberIsTooSmallException) or
+
+  // Finite checks over all coordinates and values
+  (∃ i • i ∈ 0..|X|-1 ∧ (∃ k • k ∈ 0..d-1 ∧ ¬finite(X[i][k])  ∨ ¬finite(Y[i])))
+                                                    && (ex = NotFiniteNumberException) or
+
+  (true)                                            && (ex = None)
+end_process
+
+
+process Value(p: sequence of real) outputs: ex: set
+Functional Scenario Form
+  (p = null)                                        && (ex = NullArgumentException) or
+
+  (|p| ≠ d)                                         && (ex = DimensionMismatchException) or
+
+  (∃ k • k ∈ 0..d-1 ∧ ¬finite(p[k]))                && (ex = NotFiniteNumberException) or
+
+  // Note: typical implementations return 'background' when illumination is too low,
+  // not an exception. Hence success here covers both normal and fallback usage.
+  (true)                                            && (ex = None)
+end_process
+
+end_module

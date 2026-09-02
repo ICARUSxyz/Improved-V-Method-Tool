@@ -1,0 +1,20 @@
+module FlightBookingSystem
+    var economySeats, businessSeats: integer 
+    var waitingList: sequence of string 
+    var bookingHistory: sequence of string 
+    process bookSeat(passenger: string, isBusinessClass: boolean) flag: boolean
+        functional scenario form:
+        isBusinessClass > 0 and businessSeats > 0 && flag = true and businessSeats = businessSeats - 1and bookingHistory = bookingHistory ⨁ ("Business Class Booking Confirmed"), Valid booking, assigned to Business Class
+        ||
+        ¬isBusinessClass > 0 and economySeats > 0 && flag = true and economySeats = economySeats – 1 and bookingHistory = bookingHistory ⨁ ("Economy Class Booking Confirmed"), Valid booking, assigned to Economy Class
+        ||
+        businessSeats = 0 and economySeats = 0 && flag = false and waitingList = waitingList ⨁ (passenger), Flight full, passenger added to waiting list
+    end process
+
+    process cancelBooking(passenger: string, isBusinessClass: boolean) flag: boolean
+        functional scenario form:
+        (passenger ∈ bookingHistory) && flag = true ∧ businessSeats = businessSeats + 1 ∧ bookingHistory = bookingHistory ⨁ ("Business Class Booking Cancelled")∧ (if |waitingList| > 0 then bookSeat(waitingList[0], true)), Booking cancelled, seat available, waiting list updated
+        OR
+        (passenger ∉ bookingHistory) && lag = true ∧ economySeats = economySeats + 1 ∧ bookingHistory = bookingHistory ⨁ ("Economy Class Booking Cancelled")∧ (if |waitingList| > 0 then bookSeat(waitingList[0], false)), Invalid cancellation, no action
+    end process
+end module

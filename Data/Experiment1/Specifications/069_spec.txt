@@ -1,0 +1,11 @@
+module SmartTirePressureMonitoring
+    var currentPressure, minPressure, maxPressure: real
+    process updatePressure(changeAmount: real) 
+        functional scenario form:
+        currentPressure < minPressure && output "Low Tire Pressure Alert: " + currentPressure + " psi", Low tire pressure alert is triggered.
+        ||
+        currentPressure > maxPressure && output "High Tire Pressure Alert: " + currentPressure + " psi", High tire pressure alert is triggered.
+        ||
+        currentPressure <= maxPressure && output "Tire Pressure is Optimal: " + currentPressure + " psi", Tire pressure is within the optimal range.
+    end process
+end module

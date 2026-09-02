@@ -1,0 +1,12 @@
+module SmartColdStorageControlEx
+    var currentTemperature, maxTemperature, minTemperature: real 
+    var coolingSystemActive: boolean 
+    process updateTemperature(changeAmount: real)
+        functional scenario form:
+        currentTemperature <= maxTemperature && Storage temperature maintained.
+        ||
+        currentTemperature > maxTemperature && coolingSystemActive = true, Cooling system activated.
+        ||
+        currentTemperature < minTemperature && coolingSystemActive = false, Cooling system deactivated.
+    end process
+end module

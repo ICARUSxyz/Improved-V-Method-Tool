@@ -1,0 +1,30 @@
+    c = 0 && ex = NullArgument
+    ||
+    min > max && ex = BadSequence
+    ||
+    bracketed = 0 && ex = NoBracketing
+    ||
+    yMin = 0 && ex = None and r = min
+    ||
+    yMax = 0 && ex = None and r = max
+    ||
+    yStart = 0 && ex = None and r = start
+    ||
+    yStart * yMin < 0 && ex = None
+        and r ∈ (min, start] and |f(r)| <= fAcc
+    ||
+    yStart * yMax < 0 && ex = None
+        and r ∈ [start, max) and |f(r)| <= fAcc
+    ||
+       Im <= tol
+      && ex = None
+       and r = Re(z) and |f(r)| <= fAcc
+    ||
+re <= fAcc 
+      && ex = None
+       and r = Re(root[i]) and |f(r)| <= fAcc
+    ||
+   bracketed=1 && ex = None and r = NaN
+    ||
+  evaluations > maxEval && ex = TooManyEvaluations
+

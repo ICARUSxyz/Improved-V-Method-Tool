@@ -1,0 +1,11 @@
+module SmartEBikeControl
+    var currentSpeed, targetSpeed, assistancePower, baseAssistance: real
+    process updateSpeed(changeAmount: real) returns (currentSpeed: real, assistancePower: real)
+        functional scenario form:
+        currentSpeed < targetSpeed && assistancePower = assistancePower * 1.2, Motor assistance increased by 20%.
+        ||
+        currentSpeed > targetSpeed && assistancePower = assistancePower * 0.8, Motor assistance decreased by 20%.
+        ||
+        currentSpeed = targetSpeed && Motor assistance remains unchanged.
+    end process
+end module

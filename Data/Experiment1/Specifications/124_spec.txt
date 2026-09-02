@@ -1,0 +1,15 @@
+module SmartTollBoothMonitoringEx
+    var currentTraffic, maxTraffic, minTraffic, openLanes: integer 
+    var log: sequence of string 
+    process vehicleArrives(numVehicles: integer)
+        functional scenario form:
+        currentTraffic <= maxTraffic && log = log ⨁ ("Low Traffic: Closing Unused Lanes."), Vehicles entered, lanes adjusted.
+        ||
+        currentTraffic > maxTraffic && log = log ⨁ ("Heavy Congestion Alert: Additional Lanes Opened."), Heavy congestion warning triggered, opening additional lanes.
+    end process
+
+    process vehicleExits(numVehicles: integer)   
+        functional scenario form:
+        log = log ⨁ ("Exit: " + numVehicles + " vehicles | New Traffic: " + currentTraffic + " | Open Lanes: " + openLanes), Vehicles exited, lanes adjusted.
+    end process
+end module

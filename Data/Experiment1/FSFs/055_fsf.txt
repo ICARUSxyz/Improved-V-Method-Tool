@@ -1,0 +1,5 @@
+        currentWaterLevel <= maxWaterLevel && log = log ⨁ ("Water Level Updated: " + currentWaterLevel + "m, Status Stable."), Water level updated successfully.
+        ||
+        currentWaterLevel > maxWaterLevel && drainageActive = true, log = log ⨁ ("Flood Warning: " + currentWaterLevel + "m, Activating Controlled Drainage."), Flood warning triggered, drainage activated.
+        ||
+        currentWaterLevel < minWaterLevel && drainageActive = false, log = log ⨁ ("Water Shortage Alert: " + currentWaterLevel + "m, Implementing Conservation Measures."), Water shortage alert triggered, conservation measures applied.

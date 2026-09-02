@@ -1,0 +1,5 @@
+        currentLiquidLevel >= minLiquidLevel && Liquid level maintained.
+        ||
+        currentLiquidLevel < minLiquidLevel && refillActive = true, Refill system activated.
+        ||
+        currentLiquidLevel > maxLiquidLevel && refillActive = false, Refill system deactivated.

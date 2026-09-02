@@ -1,0 +1,3 @@
+        currentLoad > maxLoadCapacity && output "ALERT: Overload detected (" + currentLoad + " kg). Elevator cannot operate.", Overload alarm triggered, elevator operation blocked.
+        ||
+        currentLoad <= maxLoadCapacity && output "Current load: " + currentLoad + " kg. Elevator operating normally.", Elevator operates normally.

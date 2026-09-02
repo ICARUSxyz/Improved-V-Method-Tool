@@ -1,0 +1,12 @@
+module SmartVendingCoolingControl
+    var currentTemperature, minTemperature, maxTemperature: real
+    var coolingActive: boolean
+    process updateTemperature(newTemperature: real) returns (currentTemperature: real, coolingActive: boolean)         
+        functional scenario form:
+        currentTemperature > maxTemperature && coolingActive = true, output "ALERT: Temperature too high (" + currentTemperature + "°C). Cooling system activated.", Cooling system activated.
+        ||
+        currentTemperature < minTemperature && coolingActive = false, output "ALERT: Temperature too low (" + currentTemperature + "°C). Cooling system deactivated.", Cooling system deactivated.
+        ||
+        currentTemperature <= maxTemperature && output "Temperature optimal (" + currentTemperature + "°C). No action needed.", No control action required.
+    end process
+end module

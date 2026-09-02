@@ -1,0 +1,476 @@
+package code;
+
+import java.util.*;
+
+class TollBooth {
+    private int maxTraffic;
+    private int minTraffic;
+    private int currentTraffic;
+    private int openLanes;
+    private List<String> log;
+
+    public TollBooth(int maxTraffic, int minTraffic, int initialTraffic) {
+        this.maxTraffic = maxTraffic;
+        this.minTraffic = minTraffic;
+        this.currentTraffic = initialTraffic;
+        this.openLanes = 5; 
+        this.log = new ArrayList<>();
+    }
+
+    public void vehicleArrives(int numVehicles) {
+        currentTraffic += numVehicles;
+        adjustLanes();
+
+        String message = String.format("Vehicles Arrived: %d | Current Traffic: %d | Open Lanes: %d", numVehicles, currentTraffic, openLanes);
+        if (currentTraffic > maxTraffic) {
+            message += " | WARNING: Heavy Congestion! Opening Additional Lanes.";
+        } else if (currentTraffic < minTraffic) {
+            message += " | Traffic Low. Closing Unused Lanes.";
+        }
+
+        System.out.println(message);
+        log.add(message);
+    }
+
+    public void vehicleExits(int numVehicles) {
+        currentTraffic = Math.max(0, currentTraffic - numVehicles);
+        adjustLanes();
+
+        System.out.printf("Vehicles Exited: %d | Current Traffic: %d | Open Lanes: %d%n", numVehicles, currentTraffic, openLanes);
+        log.add(String.format("Exit: %d vehicles | New Traffic: %d | Open Lanes: %d", numVehicles, currentTraffic, openLanes));
+    }
+
+    private void adjustLanes() {
+        if (currentTraffic > maxTraffic * 0.8) {
+            openLanes = 8; 
+        } else if (currentTraffic < minTraffic) {
+            openLanes = 3;
+        } else {
+            openLanes = 5; 
+        }
+    }
+
+    public void printLog() {
+        System.out.println("\nToll Booth Traffic Log:");
+        for (String logEntry : log) {
+            System.out.println(logEntry);
+        }
+    }
+}
+
+public class c44_SmartTollBoothSystem {
+    public static void main(String[] args) {
+        TollBooth tollBooth = new TollBooth(100, 30, 50); 
+
+        // testcase-VT:
+//        tollBooth.vehicleArrives(40); 
+//        tollBooth.vehicleArrives(20); 
+//        tollBooth.vehicleExits(30);   
+//        tollBooth.vehicleArrives(10);  
+//        tollBooth.vehicleExits(50);
+//        tollBooth.vehicleArrives(-188);
+//        tollBooth.vehicleArrives(-267);
+//        tollBooth.vehicleArrives(-456);
+//        tollBooth.vehicleArrives(-117);
+//        tollBooth.vehicleArrives(426);
+//        tollBooth.vehicleArrives(-459);
+//        tollBooth.vehicleArrives(107);
+//        tollBooth.vehicleArrives(-50);
+//        tollBooth.vehicleArrives(-317);
+//        tollBooth.vehicleArrives(-53);
+//        tollBooth.vehicleArrives(70);
+//        tollBooth.vehicleArrives(362);
+//        tollBooth.vehicleArrives(364);
+//        tollBooth.vehicleArrives(-107);
+//        tollBooth.vehicleArrives(-35);
+//        tollBooth.vehicleArrives(-178);
+//        tollBooth.vehicleArrives(409);
+//        tollBooth.vehicleArrives(-166);
+//        tollBooth.vehicleArrives(133);
+//        tollBooth.vehicleArrives(-130);
+//        tollBooth.vehicleArrives(-153);
+//        tollBooth.vehicleArrives(-205);
+//        tollBooth.vehicleArrives(-404);
+//        tollBooth.vehicleArrives(-325);
+//        tollBooth.vehicleArrives(225);
+//        tollBooth.vehicleArrives(31);
+//        tollBooth.vehicleArrives(317);
+//        tollBooth.vehicleArrives(-141);
+//        tollBooth.vehicleArrives(223);
+//        tollBooth.vehicleArrives(-411);
+//        tollBooth.vehicleArrives(-242);
+//        tollBooth.vehicleArrives(-448);
+//        tollBooth.vehicleArrives(159);
+//        tollBooth.vehicleArrives(-271);
+//        tollBooth.vehicleArrives(-373);
+//        tollBooth.vehicleArrives(482);
+//        tollBooth.vehicleArrives(99);
+//        tollBooth.vehicleArrives(445);
+//        tollBooth.vehicleArrives(-426);
+//        tollBooth.vehicleArrives(-272);
+//        tollBooth.vehicleArrives(153);
+//        tollBooth.vehicleArrives(-90);
+//        tollBooth.vehicleArrives(-156);
+//        tollBooth.vehicleArrives(15);
+//        tollBooth.vehicleArrives(-42);
+//        tollBooth.vehicleExits(-188);
+//        tollBooth.vehicleExits(-240);
+//        tollBooth.vehicleExits(400);
+//        tollBooth.vehicleExits(-148);
+//        tollBooth.vehicleExits(-181);
+//        tollBooth.vehicleExits(-78);
+//        tollBooth.vehicleExits(-227);
+//        tollBooth.vehicleExits(-257);
+//        tollBooth.vehicleExits(-480);
+//        tollBooth.vehicleExits(102);
+//        tollBooth.vehicleExits(-200);
+//        tollBooth.vehicleExits(310);
+//        tollBooth.vehicleExits(454);
+//        tollBooth.vehicleExits(210);
+//        tollBooth.vehicleExits(363);
+//        tollBooth.vehicleExits(382);
+//        tollBooth.vehicleExits(-481);
+//        tollBooth.vehicleExits(-290);
+//        tollBooth.vehicleExits(73);
+//        tollBooth.vehicleExits(466);
+//        tollBooth.vehicleExits(486);
+//        tollBooth.vehicleExits(-181);
+//        tollBooth.vehicleExits(25);
+//        tollBooth.vehicleExits(-314);
+//        tollBooth.vehicleExits(292);
+//        tollBooth.vehicleExits(-307);
+//        tollBooth.vehicleExits(-191);
+//        tollBooth.vehicleExits(-18);
+//        tollBooth.vehicleExits(381);
+//        tollBooth.vehicleExits(-77);
+//        tollBooth.vehicleExits(145);
+//        tollBooth.vehicleExits(377);
+//        tollBooth.vehicleExits(39);
+//        tollBooth.vehicleExits(-382);
+//        tollBooth.vehicleExits(-409);
+//        tollBooth.vehicleExits(440);
+//        tollBooth.vehicleExits(448);
+//        tollBooth.vehicleExits(-104);
+//        tollBooth.vehicleExits(8);
+//        tollBooth.vehicleExits(261);
+//        tollBooth.vehicleExits(-456);
+//        tollBooth.vehicleExits(-44);
+//        tollBooth.vehicleExits(-152);
+//        tollBooth.vehicleExits(-137);
+//        tollBooth.vehicleExits(-58);
+//        tollBooth.vehicleExits(335);
+//        tollBooth.vehicleExits(-159);
+//        tollBooth.vehicleExits(-153);
+//        tollBooth.vehicleExits(-16);
+//        tollBooth.vehicleExits(-325);
+
+        // tesecase-FT:
+//        tollBooth.vehicleArrives(93);
+//        tollBooth.vehicleArrives(1629);
+//        tollBooth.vehicleArrives(6);
+//        tollBooth.vehicleArrives(1542);
+//        tollBooth.vehicleArrives(394811);
+//        tollBooth.vehicleArrives(0);
+//        tollBooth.vehicleArrives(0);
+//        tollBooth.vehicleArrives(0);
+//        tollBooth.vehicleArrives(0);
+//        tollBooth.vehicleArrives(1542);
+//        tollBooth.vehicleArrives(445446);
+//        tollBooth.vehicleArrives(1494022);
+//        tollBooth.vehicleArrives(52230);
+//        tollBooth.vehicleArrives(13370928);
+//        tollBooth.vehicleArrives(100663296);
+//        tollBooth.vehicleArrives(100663296);
+//        tollBooth.vehicleArrives(100663296);
+//        tollBooth.vehicleArrives(100663296);
+//        tollBooth.vehicleArrives(100674560);
+//        tollBooth.vehicleArrives(6);
+//        tollBooth.vehicleArrives(1542);
+//        tollBooth.vehicleArrives(1542);
+//        tollBooth.vehicleArrives(-892679478);
+//        tollBooth.vehicleArrives(-892679478);
+//        tollBooth.vehicleArrives(1739);
+//        tollBooth.vehicleArrives(394955);
+//        tollBooth.vehicleArrives(1739);
+//        tollBooth.vehicleArrives(6);
+//        tollBooth.vehicleArrives(1542);
+//        tollBooth.vehicleArrives(6);
+//        tollBooth.vehicleArrives(62982);
+//        tollBooth.vehicleArrives(0);
+//        tollBooth.vehicleArrives(0);
+//        tollBooth.vehicleArrives(0);
+//        tollBooth.vehicleArrives(255);
+//        tollBooth.vehicleArrives(255);
+//        tollBooth.vehicleArrives(47);
+//        tollBooth.vehicleArrives(12038);
+//        tollBooth.vehicleArrives(12079);
+//        tollBooth.vehicleArrives(1);
+//        tollBooth.vehicleArrives(5);
+//        tollBooth.vehicleArrives(9477);
+//        tollBooth.vehicleArrives(9478);
+//        tollBooth.vehicleArrives(2426406);
+//        tollBooth.vehicleArrives(6);
+//        tollBooth.vehicleArrives(1542);
+//        tollBooth.vehicleArrives(394758);
+//        tollBooth.vehicleArrives(402694);
+//        tollBooth.vehicleArrives(103089670);
+//        tollBooth.vehicleArrives(70);
+//        tollBooth.vehicleArrives(17926);
+//        tollBooth.vehicleArrives(4589062);
+//        tollBooth.vehicleArrives(4589062);
+//        tollBooth.vehicleArrives(1542);
+//        tollBooth.vehicleArrives(1733);
+//        tollBooth.vehicleArrives(1597);
+//        tollBooth.vehicleArrives(104723957);
+//        tollBooth.vehicleArrives(104723957);
+//        tollBooth.vehicleArrives(117440511);
+//        tollBooth.vehicleArrives(47);
+//        tollBooth.vehicleArrives(59);
+//        tollBooth.vehicleArrives(64);
+//        tollBooth.vehicleArrives(15168);
+//        tollBooth.vehicleArrives(15296);
+//        tollBooth.vehicleArrives(6);
+//        tollBooth.vehicleArrives(1542);
+//        tollBooth.vehicleArrives(11732486);
+//        tollBooth.vehicleArrives(45830);
+//        tollBooth.vehicleArrives(-1291845632);
+//        tollBooth.vehicleArrives(6);
+//        tollBooth.vehicleArrives(14);
+//        tollBooth.vehicleArrives(14);
+//        tollBooth.vehicleArrives(234881024);
+//        tollBooth.vehicleArrives(234881024);
+//        tollBooth.vehicleArrives(117440511);
+//        tollBooth.vehicleArrives(117440511);
+//        tollBooth.vehicleArrives(108724223);
+//        tollBooth.vehicleArrives(108724223);
+//        tollBooth.vehicleArrives(-250);
+//        tollBooth.vehicleArrives(6);
+//        tollBooth.vehicleArrives(125);
+//        tollBooth.vehicleArrives(104);
+//        tollBooth.vehicleArrives(360);
+//        tollBooth.vehicleArrives(9320);
+//        tollBooth.vehicleArrives(1542);
+//        tollBooth.vehicleArrives(518);
+//        tollBooth.vehicleArrives(1542);
+//        tollBooth.vehicleArrives(63994);
+//        tollBooth.vehicleArrives(64249);
+//        tollBooth.vehicleArrives(393217);
+//        tollBooth.vehicleArrives(393222);
+//        tollBooth.vehicleArrives(393216);
+//        tollBooth.vehicleArrives(2490368);
+//        tollBooth.vehicleArrives(2490369);
+//        tollBooth.vehicleArrives(6);
+//        tollBooth.vehicleArrives(22);
+//        tollBooth.vehicleArrives(825307441);
+//        tollBooth.vehicleArrives(70);
+//        tollBooth.vehicleArrives(71);
+//        tollBooth.vehicleArrives(1607);
+
+        // testcase-Z3:
+//        tollBooth.vehicleArrives(40); 
+//        tollBooth.vehicleArrives(20); 
+//        tollBooth.vehicleExits(30);   
+//        tollBooth.vehicleArrives(10);  
+//        tollBooth.vehicleExits(50);
+//        tollBooth.vehicleArrives(-188);
+//        tollBooth.vehicleArrives(-267);
+//        tollBooth.vehicleArrives(-456);
+//        tollBooth.vehicleArrives(-117);
+//        tollBooth.vehicleArrives(426);
+//        tollBooth.vehicleArrives(-459);
+//        tollBooth.vehicleArrives(107);
+//        tollBooth.vehicleArrives(-50);
+//        tollBooth.vehicleArrives(-317);
+//        tollBooth.vehicleArrives(-53);
+//        tollBooth.vehicleArrives(70);
+//        tollBooth.vehicleArrives(362);
+//        tollBooth.vehicleArrives(364);
+//        tollBooth.vehicleArrives(-107);
+//        tollBooth.vehicleArrives(-35);
+//        tollBooth.vehicleArrives(-178);
+//        tollBooth.vehicleArrives(409);
+//        tollBooth.vehicleArrives(-166);
+//        tollBooth.vehicleArrives(133);
+//        tollBooth.vehicleArrives(-130);
+//        tollBooth.vehicleArrives(-153);
+//        tollBooth.vehicleArrives(-205);
+//        tollBooth.vehicleArrives(-404);
+//        tollBooth.vehicleArrives(-325);
+//        tollBooth.vehicleArrives(225);
+//        tollBooth.vehicleArrives(31);
+//        tollBooth.vehicleArrives(317);
+//        tollBooth.vehicleArrives(-141);
+//        tollBooth.vehicleArrives(223);
+//        tollBooth.vehicleArrives(-411);
+//        tollBooth.vehicleArrives(-242);
+//        tollBooth.vehicleArrives(-448);
+//        tollBooth.vehicleArrives(159);
+//        tollBooth.vehicleArrives(-271);
+//        tollBooth.vehicleArrives(-373);
+//        tollBooth.vehicleArrives(482);
+//        tollBooth.vehicleArrives(99);
+//        tollBooth.vehicleArrives(445);
+//        tollBooth.vehicleArrives(-426);
+//        tollBooth.vehicleArrives(-272);
+//        tollBooth.vehicleArrives(153);
+//        tollBooth.vehicleArrives(-90);
+//        tollBooth.vehicleArrives(-156);
+//        tollBooth.vehicleArrives(15);
+//        tollBooth.vehicleArrives(-42);
+//        tollBooth.vehicleExits(-188);
+//        tollBooth.vehicleExits(-240);
+//        tollBooth.vehicleExits(400);
+//        tollBooth.vehicleExits(-148);
+//        tollBooth.vehicleExits(-181);
+//        tollBooth.vehicleExits(-78);
+//        tollBooth.vehicleExits(-227);
+//        tollBooth.vehicleExits(-257);
+//        tollBooth.vehicleExits(-480);
+//        tollBooth.vehicleExits(102);
+//        tollBooth.vehicleExits(-200);
+//        tollBooth.vehicleExits(310);
+//        tollBooth.vehicleExits(454);
+//        tollBooth.vehicleExits(210);
+//        tollBooth.vehicleExits(363);
+//        tollBooth.vehicleExits(382);
+//        tollBooth.vehicleExits(-481);
+//        tollBooth.vehicleExits(-290);
+//        tollBooth.vehicleExits(73);
+//        tollBooth.vehicleExits(466);
+//        tollBooth.vehicleExits(486);
+//        tollBooth.vehicleExits(-181);
+//        tollBooth.vehicleExits(25);
+//        tollBooth.vehicleExits(-314);
+//        tollBooth.vehicleExits(292);
+//        tollBooth.vehicleExits(-307);
+//        tollBooth.vehicleExits(-191);
+//        tollBooth.vehicleExits(-18);
+//        tollBooth.vehicleExits(381);
+//        tollBooth.vehicleExits(-77);
+//        tollBooth.vehicleExits(145);
+//        tollBooth.vehicleExits(377);
+//        tollBooth.vehicleExits(39);
+//        tollBooth.vehicleExits(-382);
+//        tollBooth.vehicleExits(-409);
+//        tollBooth.vehicleExits(440);
+//        tollBooth.vehicleExits(448);
+//        tollBooth.vehicleExits(-104);
+//        tollBooth.vehicleExits(8);
+//        tollBooth.vehicleExits(261);
+//        tollBooth.vehicleExits(-456);
+//        tollBooth.vehicleExits(-44);
+//        tollBooth.vehicleExits(-152);
+//        tollBooth.vehicleExits(-137);
+//        tollBooth.vehicleExits(-58);
+//        tollBooth.vehicleExits(335);
+//        tollBooth.vehicleExits(-159);
+//        tollBooth.vehicleExits(-153);
+//        tollBooth.vehicleExits(-16);
+//        tollBooth.vehicleExits(-325);
+        
+        // testcase-UVT:
+        tollBooth.vehicleArrives(40); 
+        tollBooth.vehicleArrives(20); 
+        tollBooth.vehicleExits(30);   
+        tollBooth.vehicleArrives(10);  
+        tollBooth.vehicleExits(50);
+        tollBooth.vehicleArrives(-188);
+        tollBooth.vehicleArrives(-267);
+        tollBooth.vehicleArrives(-456);
+        tollBooth.vehicleArrives(-117);
+        tollBooth.vehicleArrives(426);
+        tollBooth.vehicleArrives(-459);
+        tollBooth.vehicleArrives(107);
+        tollBooth.vehicleArrives(-50);
+        tollBooth.vehicleArrives(-317);
+        tollBooth.vehicleArrives(-53);
+        tollBooth.vehicleArrives(70);
+        tollBooth.vehicleArrives(362);
+        tollBooth.vehicleArrives(364);
+        tollBooth.vehicleArrives(-107);
+        tollBooth.vehicleArrives(-35);
+        tollBooth.vehicleArrives(-178);
+        tollBooth.vehicleArrives(409);
+        tollBooth.vehicleArrives(-166);
+        tollBooth.vehicleArrives(133);
+        tollBooth.vehicleArrives(-130);
+        tollBooth.vehicleArrives(-153);
+        tollBooth.vehicleArrives(-205);
+        tollBooth.vehicleArrives(-404);
+        tollBooth.vehicleArrives(-325);
+        tollBooth.vehicleArrives(225);
+        tollBooth.vehicleArrives(31);
+        tollBooth.vehicleArrives(317);
+        tollBooth.vehicleArrives(-141);
+        tollBooth.vehicleArrives(223);
+        tollBooth.vehicleArrives(-411);
+        tollBooth.vehicleArrives(-242);
+        tollBooth.vehicleArrives(-448);
+        tollBooth.vehicleArrives(159);
+        tollBooth.vehicleArrives(-271);
+        tollBooth.vehicleArrives(-373);
+        tollBooth.vehicleArrives(482);
+        tollBooth.vehicleArrives(99);
+        tollBooth.vehicleArrives(445);
+        tollBooth.vehicleArrives(-426);
+        tollBooth.vehicleArrives(-272);
+        tollBooth.vehicleArrives(153);
+        tollBooth.vehicleArrives(-90);
+        tollBooth.vehicleArrives(-156);
+        tollBooth.vehicleArrives(15);
+        tollBooth.vehicleArrives(-42);
+        tollBooth.vehicleExits(-188);
+        tollBooth.vehicleExits(-240);
+        tollBooth.vehicleExits(400);
+        tollBooth.vehicleExits(-148);
+        tollBooth.vehicleExits(-181);
+        tollBooth.vehicleExits(-78);
+        tollBooth.vehicleExits(-227);
+        tollBooth.vehicleExits(-257);
+        tollBooth.vehicleExits(-480);
+        tollBooth.vehicleExits(102);
+        tollBooth.vehicleExits(-200);
+        tollBooth.vehicleExits(310);
+        tollBooth.vehicleExits(454);
+        tollBooth.vehicleExits(210);
+        tollBooth.vehicleExits(363);
+        tollBooth.vehicleExits(382);
+        tollBooth.vehicleExits(-481);
+        tollBooth.vehicleExits(-290);
+        tollBooth.vehicleExits(73);
+        tollBooth.vehicleExits(466);
+        tollBooth.vehicleExits(486);
+        tollBooth.vehicleExits(-181);
+        tollBooth.vehicleExits(25);
+        tollBooth.vehicleExits(-314);
+        tollBooth.vehicleExits(292);
+        tollBooth.vehicleExits(-307);
+        tollBooth.vehicleExits(-191);
+        tollBooth.vehicleExits(-18);
+        tollBooth.vehicleExits(381);
+        tollBooth.vehicleExits(-77);
+        tollBooth.vehicleExits(145);
+        tollBooth.vehicleExits(377);
+        tollBooth.vehicleExits(39);
+        tollBooth.vehicleExits(-382);
+        tollBooth.vehicleExits(-409);
+        tollBooth.vehicleExits(440);
+        tollBooth.vehicleExits(448);
+        tollBooth.vehicleExits(-104);
+        tollBooth.vehicleExits(8);
+        tollBooth.vehicleExits(261);
+        tollBooth.vehicleExits(-456);
+        tollBooth.vehicleExits(-44);
+        tollBooth.vehicleExits(-152);
+        tollBooth.vehicleExits(-137);
+        tollBooth.vehicleExits(-58);
+        tollBooth.vehicleExits(335);
+        tollBooth.vehicleExits(-159);
+        tollBooth.vehicleExits(-153);
+        tollBooth.vehicleExits(-16);
+        tollBooth.vehicleExits(-325);
+        
+//        tollBooth.printLog();          
+    }
+}
+

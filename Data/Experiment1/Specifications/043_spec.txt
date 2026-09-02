@@ -1,0 +1,15 @@
+module SmartSubwayStationMonitoring
+    var currentPassengers, maxCapacity, openTurnstiles: integer
+    var log: sequence of string 
+    process enterStation(numPassengers: integer)
+        functional scenario form:
+        currentPassengers + numPassengers <= maxCapacity && currentPassengers = currentPassengers + numPassengers, adjustTurnstiles(),log = log ⨁ ("Entry: " + numPassengers + " passengers | New Count: " + currentPassengers + " | Open Turnstiles: " + openTurnstiles), Passengers entered, turnstile count adjusted.
+        ||
+        currentPassengers + numPassengers > maxCapacity && log = log ⨁ ("Overcrowding Alert: Entry Restricted."), Overcrowding alert triggered, entry restricted.
+    end process
+
+    process exitStation(numPassengers: integer)
+        functional scenario form:
+        currentPassengers = max(0, currentPassengers - numPassengers), adjustTurnstiles(), log = log ⨁ ("Exit: " + numPassengers + " passengers | New Count: " + currentPassengers + " | Open Turnstiles: " + openTurnstiles)Passengers exited, turnstile count adjusted.
+    end process
+end module

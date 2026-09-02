@@ -1,0 +1,3 @@
+        currentNoise > noiseThreshold && output "ALERT: Noise level (" + currentNoise + " dB) exceeds threshold (" + noiseThreshold + " dB). Intervention required.", High noise alert triggered.
+        ||
+        currentNoise <= noiseThreshold && output "Noise level (" + currentNoise + " dB) is within safe limits.", Noise level is acceptable.

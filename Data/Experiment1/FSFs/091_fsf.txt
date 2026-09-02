@@ -1,0 +1,5 @@
+        currentCO2 < minCO2 && generatorActive = true, ventilationActive = false, output "ALERT: CO2 level is too low (" + currentCO2 + " ppm). Activating CO2 generator.", CO2 generator activated.
+        ||
+        currentCO2 > maxCO2 && generatorActive = false, ventilationActive = true, output "ALERT: CO2 level is too high (" + currentCO2 + " ppm). Activating ventilation system.", Ventilation system activated.
+        ||
+        currentCO2 <= maxCO2 && generatorActive = false, ventilationActive = false, output "CO2 level is optimal (" + currentCO2 + " ppm). No action required.", No control action required.

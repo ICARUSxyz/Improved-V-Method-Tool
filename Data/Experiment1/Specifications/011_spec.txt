@@ -1,0 +1,18 @@
+module MedicalDiagnosisSystem
+    var patients: sequence of (string, integer, real) 
+    var treatmentLog: sequence of string 
+    process admitPatient(name: string, severityScore: integer) flag: Boolean
+        functional scenario form:
+        severityScore >= 0 and severityScore <= 100 && flag = true and patients = patients ⨁ (name, severityScore, currentTime)and treatmentLog = treatmentLog ⨁ ("Admitted: " + name + " - Severity " + severityScore), Valid patient, admitted successfully
+        ||
+        severityScore < 0 || severityScore > 100 && flag = false, Invalid severity score, admission rejected
+    end process
+
+    process treatNextPatient() 
+        functional scenario form:
+        (|patients| > 0) && patients = removeHighestPriorityPatient(patients) 
+                    ∧ treatmentLog = treatmentLog ⨁ "Patient treated", Patient treated successfully
+        OR
+        (|patients| = 0) && No patients waiting, no action taken
+    end process
+end module

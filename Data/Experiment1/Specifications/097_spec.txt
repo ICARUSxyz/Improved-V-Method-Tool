@@ -1,0 +1,10 @@
+module SmartHighwaySpeedLimitControl
+    var currentTrafficDensity, maxTrafficDensity: real
+    var normalSpeedLimit, reducedSpeedLimit, currentSpeedLimit: integer
+    process updateTrafficDensity(newTrafficDensity: real) returns (currentSpeedLimit: integer)
+        functional scenario form:
+        currentTrafficDensity > maxTrafficDensity && currentSpeedLimit = reducedSpeedLimit, output "ALERT: High traffic density (" + currentTrafficDensity + " vehicles/km). Speed limit reduced to " + currentSpeedLimit + " km/h.", Speed limit reduced.
+        ||
+        currentTrafficDensity <= maxTrafficDensity && currentSpeedLimit = normalSpeedLimit, output "Traffic density normal (" + currentTrafficDensity + " vehicles/km). Speed limit remains " + currentSpeedLimit + " km/h.", Speed limit remains normal.
+    end process
+end module

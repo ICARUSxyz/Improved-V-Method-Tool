@@ -1,0 +1,3 @@
+        totalWaterRequests <= totalWaterSupply && totalWaterSupply = totalWaterSupply - sum(waterRequests)and allocationLog = allocationLog ⨁ "Water allocated successfully", Water allocated successfully.
+        ||
+        totalWaterRequests > totalWaterSupply && totalWaterSupply = 0and allocationLog = allocationLog ⨁ "Water rationing applied", Water supply insufficient, rationing applied.

@@ -1,0 +1,11 @@
+module TemperatureControlSystem
+	var temperature: real 
+	process setTemperature(newTemp: real)
+		functional scenario form:
+		newTemp < 16 && Warning: Temperature too low! Activating heating system... 
+|| 
+newTemp > 23 && Warning: Temperature too high! Activating cooling system... 
+|| 
+newTemp >= 16 && newTemp <= 23 && Temperature is stable. No action required.	
+end process
+end module

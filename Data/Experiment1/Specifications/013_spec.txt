@@ -1,0 +1,18 @@
+module WarehouseInventoryManagement
+    var stock, quantity, reorderThreshold, reorderAmount: integer 
+var pendingOrders: sequence of integer 
+    var transactionLog: sequence of string
+    process sell(quantity: integer) flag: boolean
+        functional scenario form:
+quantity <= stock && flag = true and stock = stock – quantityand transactionLog = transactionLog ⨁ ("Sold: " + quantity + " items") and if stock < reorderThreshold then pendingOrders = pendingOrders ⨁ reorderAmount, Valid sale, stock updated, check for replenishment
+        ||
+        quantity > stock && flag = false, Invalid sale, insufficient stock, no changes
+    end process
+
+    process receiveReplenishment()
+        functional scenario form:
+        (|pendingOrders| > 0) && stock = stock + first(pendingOrders) ∧ transactionLog = transactionLog ⨁ "Replenishment received"∧ pendingOrders = removeFirst(pendingOrders), Replenishment received, stock updated.
+        OR
+        (|pendingOrders| = 0) && No pending replenishment orders.
+    end process
+end module

@@ -1,0 +1,27 @@
+  f = 0                             && ex = NullArgumentException ||
+  maxEval <= 0                               && ex = NotStrictlyPositiveException ||
+  relativeAccuracy <= 0                      && ex = NotStrictlyPositiveException ||
+  absoluteAccuracy <= 0                      && ex = NotStrictlyPositiveException ||
+  minimalIterationCount <= 0                 && ex = NotStrictlyPositiveException ||
+  minimalIterationCount >= maximalIterationCount
+                                               && ex = NumberIsTooSmallException ||
+isNaN=1                  && ex = NotANumberException ||
+  isInfinite=1          && ex = NotFiniteNumberException ||
+  
+  min >= max                                  && ex = NumberIsTooLargeException ||
+evaluations_used > maxEval  && ex = TooManyEvaluationsException ||
+evaluations_used <= maxEval                 && ex = MaxCountExceededException ||
+
+ 
+evaluations_used <= minEval 
+                                               && ex = None
+where
+  valid_inputs ==
+    f ≠ null and
+    maxEval > 0 and
+    (relativeAccuracy > 0 ∨ absoluteAccuracy > 0) and
+    minimalIterationCount > 0 and
+    minimalIterationCount < maximalIterationCount and
+    (¬isNaN(min)) and (¬isNaN(max)) and
+    (¬isInfinite(min)) and (¬isInfinite(max)) and
+    min < max

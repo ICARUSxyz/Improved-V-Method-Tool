@@ -1,0 +1,3 @@
+        currentLoad <= maxCapacity && tripLog = tripLog ⨁ ("Overload Alert: " + passenger), Passenger entered, load updated.
+        ||
+        currentLoad > maxCapacity && tripLog = tripLog ⨁ ("Passenger Entered: " + passenger), Overload detected, alert triggered.

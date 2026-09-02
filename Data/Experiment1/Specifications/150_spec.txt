@@ -1,0 +1,62 @@
+module LoessInterpolator
+type
+  x, y: sequence of real
+  n: int
+  bandwidth: real       
+  robustnessIters: int  
+  accuracy: real      
+  ex: set of {
+    None,
+    NullArgumentException,
+    NoDataException,
+    DimensionMismatchException,
+    NumberIsTooSmallException,
+    NonMonotonicSequenceException,
+    NotFiniteNumberException,
+    OutOfRangeException,
+    NotPositiveException,
+    NotStrictlyPositiveException
+  }
+
+process Construct(bandwidth: real, robustnessIters: int, accuracy: real) outputs: ex: set
+Functional Scenario Form
+  bandwidth <= 0             && ex = OutOfRangeException ||
+  robustnessIters < 0                             && ex = NotPositiveException ||
+  accuracy <= 0                                   && ex = NotStrictlyPositiveException ||
+  bandwidth > 1                                             && ex = None
+end_process
+
+
+process Smooth(x, y: sequence of real) outputs: ex: set
+Functional Scenario Form
+  (x = null or y = null)                            && (ex = NullArgumentException) or
+  (|x| = 0 or |y| = 0)                              && (ex = NoDataException) or
+  (|x| ≠ |y|)                                       && (ex = DimensionMismatchException) or
+  (|x| < 2)                                         && (ex = NumberIsTooSmallException) or
+  (∃ i • i∈0..|x|-1 ∧ (¬finite(x[i]) or ¬finite(y[i])))
+                                                    && (ex = NotFiniteNumberException) or
+  (¬strict_increasing(x))                           && (ex = NonMonotonicSequenceException) or
+  (true)                                            && (ex = None)
+end_process
+
+
+process SmoothWithParams(x, y: sequence of real,
+                         bandwidth: real, robustnessIters: int, accuracy: real) outputs: ex: set
+Functional Scenario Form
+  // Parameter checks first (constructor-equivalent)
+  (bandwidth <= 0 or bandwidth > 1)                 && (ex = OutOfRangeException) or
+  (robustnessIters < 0)                             && (ex = NotPositiveException) or
+  (accuracy <= 0)                                   && (ex = NotStrictlyPositiveException) or
+
+  // Data checks (same as Smooth)
+  (x = null or y = null)                            && (ex = NullArgumentException) or
+  (|x| = 0 or |y| = 0)                              && (ex = NoDataException) or
+  (|x| ≠ |y|)                                       && (ex = DimensionMismatchException) or
+  (|x| < 2)                                         && (ex = NumberIsTooSmallException) or
+  (∃ i • i∈0..|x|-1 ∧ (¬finite(x[i]) or ¬finite(y[i])))
+                                                    && (ex = NotFiniteNumberException) or
+  (¬strict_increasing(x))                           && (ex = NonMonotonicSequenceException) or
+  (true)                                            && (ex = None)
+end_process
+
+end_module

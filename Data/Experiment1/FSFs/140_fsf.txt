@@ -1,0 +1,20 @@
+  f = 0                                       && ex = NullArgumentException ||
+
+  maxEval <= 0                                       && ex = NotStrictlyPositiveException ||
+  minimalIterationCount <= 0                         && ex = NotStrictlyPositiveException ||
+  minimalIterationCount > maximalIterationCount      && ex = NumberIsTooLargeException ||
+  relativeAccuracy <= 0       && ex = NotStrictlyPositiveException ||
+
+  // Domain sanity: numbers must be finite and ordered
+  isNaN=0                            && ex = NotANumberException ||
+  isInfinite=0                 && ex = NotFiniteNumberException ||
+  min > max                                          && ex = NumberIsTooLargeException ||
+
+  // Degenerate interval: integral over zero-length domain
+  min = max                                          && (ex = None and result = 0.0) ||
+
+  // Runtime evaluation budget exhaustion (generic to base)
+evaluations_used > maxEval          && ex = TooManyEvaluationsException ||
+
+  // Normal success (some subclass-specific termination criterion met before budget)
+ evaluations_used <= maxEval          && ex = None

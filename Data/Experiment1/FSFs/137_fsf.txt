@@ -1,0 +1,27 @@
+    f = null && ex = NullArgument
+    ||
+    min > max && ex = BadSequence
+    ||
+bracketed = 0 && ex = NoBracketing
+    ||
+    yMin = 0 && ex = None && r = min
+    ||
+    yMax = 0 && ex = None && r = max
+    ||
+yStart = 0 && ex = None && r = start
+    ||
+yStart * yMin < 0 && ex = None
+        && r ∈ (min, start] && |f(r)| <= fAcc
+    ||
+ yStart * yMax < 0 && ex = None
+        && r ∈ [start, max) && |f(r)| <= fAcc
+    ||
+b - a <= tol
+      && ex = None
+       && r = xR && |f(r)| <= fAcc
+    ||
+a'*b'<0 && ex = None
+        && r ∈ [a', b']  // continues iterations until a termination condition holds
+    ||
+    evaluations > maxEval && ex = TooManyEvaluations
+

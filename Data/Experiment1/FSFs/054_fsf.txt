@@ -1,0 +1,5 @@
+currentLoad >= minLoad && currentLoad = currentLoad + changeAmount, Power load balanced successfully.
+        ||
+        currentLoad > maxLoad && powerSavingMode = true, log = log ⨁ ("Overload Warning: " + currentLoad + " MW, Activating Power-Saving Measures."), Overload warning triggered, power-saving measures activated.
+        ||
+        currentLoad < minLoad && powerSavingMode = false, log = log ⨁ ("Low Demand Info: " + currentLoad + " MW, Storing Surplus Energy."), Low demand detected, surplus energy stored.

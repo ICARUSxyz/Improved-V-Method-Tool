@@ -1,0 +1,16 @@
+module SmartAGVPathOptimization
+    var currentPosition: integer 
+    var isMoving: boolean 
+    var log: sequence of string
+    process moveTo(newPosition: integer)
+        functional scenario form:
+        newPosition = 1 && isMoving = true, currentPosition = newPosition, log = log ⨁ ("AGV moved from Position " + currentPosition + " to " + newPosition), AGV moved successfully.
+        ||
+        newPosition = 0 && log = log ⨁ ("AGV already at Position " + newPosition), No movement needed.
+    end process
+
+    process stopAGV()
+        functional scenario form:
+        AGV stopped successfully.
+    end process
+end module

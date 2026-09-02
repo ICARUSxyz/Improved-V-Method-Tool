@@ -1,0 +1,18 @@
+module SmartLibraryLoanManagement
+    var availableCopies, totalCopies: integer
+    var waitlist: sequence of string 
+    var log: sequence of string 
+    process borrowBook(user: string)
+        functional scenario form:
+        availableCopies > 0 && availableCopies = availableCopies – 1, log = log ⨁ (user + " borrowed a book | Remaining: " + availableCopies + "/" + totalCopies), Book borrowed successfully.
+        ||
+        availableCopies = 0 && waitlist = waitlist ⨁ user, log = log ⨁ (user + " added to waitlist | No copies available."), User added to waitlist.
+    end process
+
+    process returnBook(user: string)
+        functional scenario form:
+        (size(waitlist) > 0) && let nextUser = head(waitlist) in waitlist = tail(waitlist), log = log ⨁ (user + " returned a book | Assigned to " + nextUser), Book assigned to next user in waitlist.
+        OR
+        (size(waitlist) = 0) && availableCopies = min(totalCopies, availableCopies + 1), log = log ⨁ (user + " returned a book | Available: " + availableCopies + "/" + totalCopies), Book returned to available copies.
+    end process
+end module

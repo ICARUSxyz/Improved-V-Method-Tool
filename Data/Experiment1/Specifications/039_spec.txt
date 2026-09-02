@@ -1,0 +1,11 @@
+module TunnelAirQualityMonitoring
+    var currentCO, maxCO, currentNO2, maxNO2, currentPM25, maxPM25: real  
+    var ventilationActive: boolean 
+    var log: sequence of string 
+    process updateAirQuality(changeCO: real, changeNO2: real, changePM25: real)
+        functional scenario form:
+currentPM25 <= maxPM25 && ventilationActive = false, log = log ⨁ ("Air Quality Normal. Ventilation Standby."), Air quality normal, no action needed.
+        ||
+currentPM25 > maxPM25 && ventilationActive = true, log = log ⨁ ("Air Quality Alert! Ventilation Activated."), Air quality alert, ventilation activated.
+    end process
+end module

@@ -1,0 +1,15 @@
+module BankLoanApproval
+    var income, requestedAmount, approvedAmount: real 
+    var creditScore: integer 
+    var loanDecisionLog: sequence of string
+    process evaluateLoan(income: real, requestedAmount: real, creditScore: integer) approvedAmount: real
+        functional scenario form:
+        creditScore < 600 && approvedAmount = 0 and loanDecisionLog = loanDecisionLog ⨁ ("Loan Denied: Low Credit Score"), Loan denied due to low credit score.
+        ||
+        requestedAmount <= income * 5 && approvedAmount = requestedAmount and loanDecisionLog = loanDecisionLog ⨁ ("Full Loan Approved"), Full loan approved.
+        ||
+        requestedAmount <= income * 6 && approvedAmount = income * 5and loanDecisionLog = loanDecisionLog ⨁ ("Partial Loan Approved"), Partial loan approved.
+        ||
+        requestedAmount > income * 6 && approvedAmount = 0 and loanDecisionLog = loanDecisionLog ⨁ ("Loan Denied: Exceeds Limit"), Loan denied due to exceeding limit.
+    end process
+end module

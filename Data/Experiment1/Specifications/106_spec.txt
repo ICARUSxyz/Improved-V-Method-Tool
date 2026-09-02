@@ -1,0 +1,9 @@
+module SmartTireTreadWearMonitoring
+    var currentTreadDepth, minTreadDepth: real
+    process updateTreadDepth(newDepth: real) returns (currentTreadDepth: real)
+        functional scenario form:
+        currentTreadDepth < minTreadDepth && output "ALERT: Tire tread depth (" + currentTreadDepth + " mm) is below safe threshold (" + minTreadDepth + " mm). Tire replacement required.", Tire tread is below safety threshold; replacement alert triggered.
+        ||
+        currentTreadDepth >= minTreadDepth && output "Tire tread depth (" + currentTreadDepth + " mm) is within safe limits.", Tire tread is acceptable.
+    end process
+end module

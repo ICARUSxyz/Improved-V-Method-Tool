@@ -1,0 +1,17 @@
+module SmartWaterPumpMonitoring
+    var currentFlowRate, minFlowRate, currentEnergyUsage, maxEnergyUsage, runTime: real 
+    var log: sequence of string 
+    process updateFlowRate(changeAmount: real)
+        functional scenario form:
+        currentFlowRate >= minFlowRate && log = log ⨁ ("Flow Rate Updated: " + currentFlowRate + " L/min"), Flow rate updated successfully.
+        ||
+        currentFlowRate < minFlowRate && log = log ⨁ ("Low Flow Alert: " + currentFlowRate + " L/min, Possible Clogging or Low Pressure."), Low flow alert triggered, possible clogging.
+    end process
+
+    process calculateEnergyUsage(runTime: real)
+        functional scenario form:
+        (currentEnergyUsage ≤ maxEnergyUsage) && log = log ⨁ ("Energy Consumption Recorded: " + currentEnergyUsage + " kWh"), Energy usage recorded successfully.
+        OR
+        (currentEnergyUsage > maxEnergyUsage) && log = log ⨁ ("High Energy Usage Alert: " + currentEnergyUsage + " kWh, Efficiency Optimization Required."), High energy usage alert triggered.
+    end process
+end module

@@ -1,0 +1,11 @@
+module StudentFinalGradeManagement
+	var grade: int 
+	process recordFinalGrade(grade: int) 
+		functional scenario form:
+		grade >= 0 and grade <= 100 && Valid grade entry, final grade recorded 
+||
+grade < 0 && Invalid grade, grade rejected
+||
+grade > 100 && Invalid grade, grade rejected
+	end process
+end module

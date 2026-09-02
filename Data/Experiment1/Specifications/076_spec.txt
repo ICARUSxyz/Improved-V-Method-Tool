@@ -1,0 +1,9 @@
+module SmartEVChargingFeeCalculation
+    var currentConsumption, baseRate, penaltyRate, threshold: real
+    process addConsumption(kWh: real) returns (totalFee: real, currentConsumption: real)
+        functional scenario form:
+        currentConsumption <= threshold && totalFee = currentConsumption * baseRate, Total fee calculated as: currentConsumption * baseRate.
+        ||
+        currentConsumption > threshold && totalFee = threshold * baseRate + (currentConsumption - threshold) * (baseRate + penaltyRate), output "Total Consumption: " + currentConsumption + " kWh, Total Fee: $" + totalFee, Total fee calculated as: threshold * baseRate + (currentConsumption - threshold) * (baseRate + penaltyRate).
+    end process
+end module

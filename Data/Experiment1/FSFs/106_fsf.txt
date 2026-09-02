@@ -1,0 +1,3 @@
+        currentTreadDepth < minTreadDepth && output "ALERT: Tire tread depth (" + currentTreadDepth + " mm) is below safe threshold (" + minTreadDepth + " mm). Tire replacement required.", Tire tread is below safety threshold; replacement alert triggered.
+        ||
+        currentTreadDepth >= minTreadDepth && output "Tire tread depth (" + currentTreadDepth + " mm) is within safe limits.", Tire tread is acceptable.

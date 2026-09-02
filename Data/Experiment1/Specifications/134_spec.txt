@@ -1,0 +1,41 @@
+module LaguerreSolver
+  type
+    min, max, start: real      // interval bounds and (optional) start value
+    maxEval: integer           // maximum function evaluations
+    relAcc, absAcc, fAcc: real // solver tolerances: relative, absolute, function-value
+    r: real                 
+    
+process solvePF(c[], min, max, start, maxEval, relAcc, absAcc, fAcc: real)  r: real
+    functional scenario form:
+    c = 0 && ex = NullArgument
+    ||
+    min > max && ex = BadSequence
+    ||
+    bracketed = 0 && ex = NoBracketing
+    ||
+    yMin = 0 && ex = None and r = min
+    ||
+    yMax = 0 && ex = None and r = max
+    ||
+    yStart = 0 && ex = None and r = start
+    ||
+    yStart * yMin < 0 && ex = None
+        and r ∈ (min, start] and |f(r)| <= fAcc
+    ||
+    yStart * yMax < 0 && ex = None
+        and r ∈ [start, max) and |f(r)| <= fAcc
+    ||
+       Im <= tol
+      && ex = None
+       and r = Re(z) and |f(r)| <= fAcc
+    ||
+re <= fAcc 
+      && ex = None
+       and r = Re(root[i]) and |f(r)| <= fAcc
+    ||
+   bracketed=1 && ex = None and r = NaN
+    ||
+  evaluations > maxEval && ex = TooManyEvaluations
+
+end process
+end module

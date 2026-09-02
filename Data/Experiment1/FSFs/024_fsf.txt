@@ -1,0 +1,9 @@
+        totalAmount > 200 && discount = totalAmount * 0.10, 10% discount applied.
+        ||
+        totalAmount > 100 && discount = totalAmount * 0.05, 5% discount applied.
+        ||
+        promoCode = 20 && discount = discount + 20, Additional $20 discount applied.
+        ||
+        promoCode = 10 && discount = discount + 10, Additional $10 discount applied.
+        ||
+        discount > totalAmount && discount = totalAmount, Discount capped at total purchase amount.

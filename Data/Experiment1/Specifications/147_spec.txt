@@ -1,0 +1,74 @@
+module FiniteDifferencesDifferentiator
+type
+  nPts: int                 // number of stencil points
+  h: real                   // step size (strictly positive)
+  a, b: real                // lower/upper bounds, a < b
+  span: real                // (nPts - 1) * h
+  x: real                   // evaluation abscissa for double path
+  y: real                   // scalar result
+  ex: set of {
+    None,
+    NullArgumentException,
+    NotStrictlyPositiveException,
+    NumberIsTooSmallException,
+    NumberIsTooLargeException,
+    OutOfRangeException,
+    NotFiniteNumberException
+  }
+
+process Construct(nPts: int, h: real, a: real, b: real) result: (span: real, ex: set)
+Functional Scenario Form
+  nPts < 2                                  && ex = NumberIsTooSmallException ||
+  h <= 0                                    && ex = NotStrictlyPositiveException ||
+  a >= b                                    && ex = NumberIsTooLargeException ||
+  nPts * h > b - a                 && ex = NumberIsTooLargeException ||
+  nPts>100                         && (ex = None && span = (nPts - 1) * h)
+end_process
+
+
+process Differentiate(f: UnivariateFunction) result: (g: UnivariateDifferentiableFunction, ex: set)
+Functional Scenario Form
+  (f = null)                                  && (ex = NullArgumentException) or
+  (f ≠ null)                                  && (ex = None && g wraps(f) with finite-difference stencil of length nPts and step h, domain [a,b])
+end_process
+
+
+process Eval0(g, x: real) result: (y: real, ex: set)
+Functional Scenario Form
+  (x is NaN)                                   && (ex = None && isNaN(y)) or
+  (x = ±∞)                                     && (ex = NotFiniteNumberException) or
+  (x < a || x > b)                             && (ex = OutOfRangeException) or
+  (a ≤ x ≤ b && no NaN produced by f at sampled stencil points)
+                                               && (ex = None && y = finite-difference combination of f(x + k*h_shifted))
+                                               // h_shifted: stencil may be shifted so that all sample points ∈ [a,b]
+  (a ≤ x ≤ b && any sampled f value is NaN)    && (ex = None && isNaN(y)) or
+  (a ≤ x ≤ b && arithmetic over/underflow)     && (ex = None && y may be ±Infinity or signed zero per IEEE-754)
+end_process
+
+
+process EvalDS(g, t: DerivativeStructure) result: (T: DerivativeStructure, ex: set)
+Functional Scenario Form
+  (t = null)                                   && (ex = NullArgumentException) or
+  (t.value is NaN)                              && (ex = None && T is NaN DS) or
+  (t.value = ±∞)                                && (ex = NotFiniteNumberException) or
+  (t.value < a || t.value > b)                 && (ex = OutOfRangeException) or
+  (t.order > (nPts - 1))                       && (ex = NumberIsTooLargeException) or
+  (a ≤ t.value ≤ b && t.order ≤ (nPts - 1) && all sampled values finite)
+                                               && (ex = None && T = DS computed by finite-difference weights up to order t.order) or
+  (a ≤ t.value ≤ b && any sampled f is NaN)    && (ex = None && T is NaN DS)
+end_process
+
+
+process StencilShift(x: real) result: (center: real, indices: sequence of int)
+Functional Scenario Form
+  (a + span/2 ≤ x ≤ b - span/2)                && (center = x; indices = symmetric offsets around center) or
+  (x < a + span/2)                              && (center = a + span/2; indices shifted right so that min sample = a, max sample = a + span) or
+  (x > b - span/2)                              && (center = b - span/2; indices shifted left so that min sample = b - span, max sample = b)
+end_process
+
+
+process MaxOrder(nPts: int) result: (maxOrd: int)
+Functional Scenario Form
+  (nPts ≥ 2)                                   && (maxOrd = nPts - 1)
+end_process
+end_module

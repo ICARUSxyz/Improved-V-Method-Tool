@@ -1,0 +1,5 @@
+    f = 0 && ex = NullArgument
+    ||  hasNaN=0 && ex = NotANumber
+    ||  isOrdered=0 && ex = BadSequence
+    ||  bracketed=1 && ex = None && r = true
+    ||  bracketed=0 && ex = None && r = false

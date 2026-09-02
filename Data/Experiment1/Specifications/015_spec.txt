@@ -1,0 +1,13 @@
+module OnlineMeetingScheduling
+    var meetings: sequence of (string, integer, integer) 
+    var meetingLog: sequence of string
+    var maxDuration: integer 
+    process scheduleMeeting(organizer: string, startTime: integer, duration: integer) flag: boolean
+        functional scenario form:
+        duration <= maxDuration && flag = true and meetings = meetings ⨁ (organizer, startTime, duration)and meetingLog = meetingLog ⨁ ("Scheduled: " + organizer + " from " + startTime + ":00 to " + (startTime + duration) + ":00"), Meeting scheduled successfully.
+        ||
+        duration > maxDuration && flag = false, Invalid duration! Meeting request rejected.
+        ||
+        conflictDetected=1 && flag = false, Meeting conflict detected! Scheduling failed.    
+end process
+end module

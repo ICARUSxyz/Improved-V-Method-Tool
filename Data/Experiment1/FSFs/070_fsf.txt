@@ -1,0 +1,3 @@
+        quantity <= currentInventory && totalCost = quantity * pricePerItem, currentInventory = currentInventory – quantity, Purchase successful, totalCost = quantity * pricePerItem, currentInventory updated.
+        ||
+        quantity > currentInventory && totalCost = 0, Purchase failed, totalCost = 0, currentInventory unchanged.

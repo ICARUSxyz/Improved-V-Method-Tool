@@ -1,0 +1,39 @@
+module RiddersSolver
+type
+    min, max, start: real      // search interval [min, max] and optional start
+    maxEval: integer           // maximum allowed function evaluations
+    relAcc, absAcc, fAcc: real // relative, absolute, function-value tolerances
+    r: real                    // returned root
+    ex: set of {None, NullArgument, BadSequence, NoBracketing, TooManyEvaluations} 
+
+process solve(f, min, max, start, maxEval, relAcc, absAcc, fAcc: real) r: real, ex: set of {None, NullArgument, BadSequence, NoBracketing, TooManyEvaluations}
+    functional scenario form:
+    f = null && ex = NullArgument
+    ||
+    min > max && ex = BadSequence
+    ||
+bracketed = 0 && ex = NoBracketing
+    ||
+    yMin = 0 && ex = None && r = min
+    ||
+    yMax = 0 && ex = None && r = max
+    ||
+yStart = 0 && ex = None && r = start
+    ||
+yStart * yMin < 0 && ex = None
+        && r ∈ (min, start] && |f(r)| <= fAcc
+    ||
+ yStart * yMax < 0 && ex = None
+        && r ∈ [start, max) && |f(r)| <= fAcc
+    ||
+b - a <= tol
+      && ex = None
+       && r = xR && |f(r)| <= fAcc
+    ||
+a'*b'<0 && ex = None
+        && r ∈ [a', b']  // continues iterations until a termination condition holds
+    ||
+    evaluations > maxEval && ex = TooManyEvaluations
+
+end process
+end module

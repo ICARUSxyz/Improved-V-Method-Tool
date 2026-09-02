@@ -1,0 +1,3 @@
+        |enrolledStudents| < capacity && flag = true and enrolledStudents = enrolledStudents ⨁ studentNameand enrollmentLog = enrollmentLog ⨁ ("Enrolled: " + studentName), Student enrolled successfully.
+        ||
+        |enrolledStudents| >= capacity && flag = false and waitingList = waitingList ⨁ studentNameand enrollmentLog = enrollmentLog ⨁ ("Waiting list: " + studentName), Course full! Student added to waiting list.

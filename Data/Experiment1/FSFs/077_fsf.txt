@@ -1,0 +1,5 @@
+        currentBrightness > highBrightnessThreshold && blindAngle = 80.0, Blinds lowered (80°) due to high brightness.
+        ||
+        currentBrightness < lowBrightnessThreshold && blindAngle = 20.0, Blinds raised (20°) due to low brightness.
+        ||
+        currentBrightness >= lowBrightnessThreshold && blindAngle = 50.0, Blinds set to 50°.

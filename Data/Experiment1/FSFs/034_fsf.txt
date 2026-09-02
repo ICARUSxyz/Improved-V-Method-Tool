@@ -1,0 +1,5 @@
+        currentCharge >= minCharge && chargeLog = chargeLog ⨁ ("Charge Level Updated: " + currentCharge + "%"), Charge level updated successfully.
+        ||
+        currentCharge > maxCharge && chargeLog = chargeLog ⨁ ("Overcharge Warning: " + currentCharge + "%, Stop Charging Immediately."), Overcharge warning triggered, stop charging.
+        ||
+        currentCharge < minCharge && chargeLog = chargeLog ⨁ ("Low Battery Alert: " + currentCharge + "%, Immediate Charging Recommended."), Low battery alert triggered, immediate charging recommended.

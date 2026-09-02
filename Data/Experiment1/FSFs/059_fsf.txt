@@ -1,0 +1,3 @@
+        availableCopies > 0 && availableCopies = availableCopies – 1, log = log ⨁ (user + " borrowed a book | Remaining: " + availableCopies + "/" + totalCopies), Book borrowed successfully.
+        ||
+        availableCopies = 0 && waitlist = waitlist ⨁ user, log = log ⨁ (user + " added to waitlist | No copies available."), User added to waitlist.

@@ -1,0 +1,12 @@
+module SmartRoadIceDetectionEx
+    var currentTemperature, freezingPoint, stopSaltDispersionTemp: real 
+    var saltDispersionActive: boolean 
+    process updateRoadTemperature(changeAmount: real)
+        functional scenario form:
+        currentTemperature >= freezingPoint && Road temperature maintained.
+        ||
+        currentTemperature < freezingPoint && saltDispersionActive = true, Salt dispersion activated.
+        ||
+        currentTemperature > stopSaltDispersionTemp && saltDispersionActive = false Salt dispersion deactivated.
+    end process
+end module

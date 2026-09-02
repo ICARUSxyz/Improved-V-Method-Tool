@@ -1,0 +1,5 @@
+        cropType notin(1,2,3) && Error: Unknown crop type.
+        ||
+        currentMoisture >= moistureThreshold && waterToApply = 0, irrigationLog = irrigationLog ⨁ ("Irrigation Skipped: " + cropType), No irrigation needed.
+        ||
+        currentMoisture < moistureThreshold && waterToApply = min(cropWaterNeeds[cropType] * (1 + (temperature - 25) * 0.02), maxWaterPerSession), irrigationLog = irrigationLog ⨁ ("Irrigation Applied: " + cropType), Irrigation applied with calculated water amount.

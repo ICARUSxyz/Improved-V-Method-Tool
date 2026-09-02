@@ -1,0 +1,13 @@
+module SmartFactoryProductionManagement
+    var currentSpeed, maxSpeed, minSpeed, optimalSpeed: real 
+    var maintenanceWarning: boolean 
+    var log: sequence of string 
+    process updateSpeed(changeAmount: real)
+        functional scenario form:
+currentSpeed >= minSpeed && log = log ⨁ ("Adjusting for Efficiency: " + currentSpeed + " units/hour."), Production speed updated successfully.
+        ||
+        currentSpeed > maxSpeed && maintenanceWarning = true, log = log ⨁ ("Overproduction Warning: " + currentSpeed + " units/hour, Risk of Equipment Wear."), Overproduction warning triggered, maintenance needed.
+        ||
+        currentSpeed < minSpeed && maintenanceWarning = false, log = log ⨁ ("Low Efficiency Alert: " + currentSpeed + " units/hour, Consider Increasing Output."), Low efficiency alert triggered, production adjustment recommended.
+    end process
+end module

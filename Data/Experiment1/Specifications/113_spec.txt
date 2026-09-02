@@ -1,0 +1,12 @@
+module SmartGasLeakDetection
+    var currentGasLevel, warningThreshold, dangerThreshold: real
+    var emergencyShutdown: boolean
+    process updateGasLevel(newGasLevel: real) returns (currentGasLevel: real, emergencyShutdown: boolean)
+        functional scenario form:
+        currentGasLevel > dangerThreshold && emergencyShutdown = true, output "ALERT: Critical gas leak detected (" + currentGasLevel + "% LEL). Emergency shutdown initiated.", Emergency shutdown activated.
+        ||
+        currentGasLevel <= dangerThreshold && emergencyShutdown = false, output "WARNING: Gas level high (" + currentGasLevel + "% LEL). Immediate attention required.", Gas warning alert triggered.
+        ||
+        currentGasLevel <= warningThreshold && emergencyShutdown = false, output "Gas concentration is within safe limits (" + currentGasLevel + "% LEL).", Gas level is within safe range.
+    end process
+end module

@@ -1,0 +1,12 @@
+module SmartTrafficSignalControl
+    var currentTrafficDensity, maxTrafficDensity, minTrafficDensity, greenLightDuration: integer 
+    var log: sequence of string 
+    process updateTrafficDensity(newDensity: integer)
+        functional scenario form:
+        currentTrafficDensity <= maxTrafficDensity && log = log ⨁ ("Traffic Flow Optimal: " + currentTrafficDensity + " vehicles."), Traffic flow optimized, green light duration adjusted.
+        ||
+        currentTrafficDensity > maxTrafficDensity && log = log ⨁ ("High Congestion Warning: " + currentTrafficDensity + " vehicles, Extending Green Light Duration."), High congestion warning triggered, green light extended.
+        ||
+        currentTrafficDensity < minTrafficDensity && log = log ⨁ ("Low Traffic Info: " + currentTrafficDensity + " vehicles, Reducing Green Light Duration."), Low traffic detected, green light reduced.
+    end process
+end module

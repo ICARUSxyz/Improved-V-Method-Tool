@@ -1,0 +1,12 @@
+module AirportBaggageSystem
+    var baggageWeight, freeWeightLimit, maxWeightLimit, overweightFeePerKg, excessWeight, fee: real  
+    var baggageLog: sequence of string 
+    process checkBaggage(passengerName: string, baggageWeight: real) fee: real
+        functional scenario form:
+        baggageWeight > maxWeightLimit && fee = -1, baggageLog = baggageLog ⨁ ("Check-in Denied: " + passengerName), Check-in denied due to exceeding max weight.
+        ||
+        baggageWeight > freeWeightLimit && excessWeight = baggageWeight – freeWeightLimit, fee = excessWeight * overweightFeePerKg, baggageLog = baggageLog ⨁ ("Overweight Fee: " + passengerName) Overweight fee applied.
+        ||
+        baggageWeight <= freeWeightLimit && fee = 0, baggageLog = baggageLog ⨁ ("No Fee: " + passengerName), No extra fee.
+    end process
+end module

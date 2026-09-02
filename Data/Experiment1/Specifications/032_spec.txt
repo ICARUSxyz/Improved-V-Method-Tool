@@ -1,0 +1,21 @@
+module ColdChainTemperatureMonitoring
+    var currentTemp, maxTemp, minTemp: real 
+    var tempLog: sequence of string 
+    process updateTemperature(changeAmount: real)
+        pre currentTemp + changeAmount ≥ -273.15 
+        post 
+            currentTemp = currentTemp + changeAmount
+            if (currentTemp > maxTemp) then 
+                tempLog = tempLog ⨁ ("Over-temperature Warning: " + currentTemp + "°C, Risk of Spoilage.")
+            else if (currentTemp < minTemp) then 
+                tempLog = tempLog ⨁ ("Freezing Alert: " + currentTemp + "°C, Possible Product Damage.")
+            else 
+                tempLog = tempLog ⨁ ("Temperature Updated: " + currentTemp + "°C")
+        functional scenario form:
+        currentTemp >= minTemp && Temperature updated successfully.
+        ||
+        currentTemp > maxTemp && Over-temperature warning triggered, risk of spoilage.
+        ||
+        currentTemp < minTemp && Freezing alert triggered, potential product damage.
+    end process
+end module

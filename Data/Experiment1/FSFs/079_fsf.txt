@@ -1,0 +1,5 @@
+        currentFlowRate < minFlowRate && pumpSpeed = min(pumpSpeed * 1.2, 100.0), Pump speed increased.
+        ||
+        currentFlowRate > maxFlowRate && pumpSpeed = max(pumpSpeed * 0.8, 20.0), Pump speed decreased.
+        ||
+        currentFlowRate <= maxFlowRate && Pump speed unchanged.

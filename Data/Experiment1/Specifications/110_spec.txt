@@ -1,0 +1,12 @@
+module SmartParkingLotMonitoring
+    var availableSpaces, alertThreshold: integer
+    var fullSignActive: boolean
+    process updateAvailableSpaces(newAvailableSpaces: integer) returns (availableSpaces: integer, fullSignActive: boolean)
+        functional scenario form:
+        availableSpaces = 0 && fullSignActive = true, output "ALERT: Parking lot full! No more vehicles allowed.", Full sign activated.
+        ||
+        availableSpaces < alertThreshold  && output "WARNING: Parking lot almost full. Limited spaces available.", Parking lot warning triggered.
+        ||
+        availableSpaces >= alertThreshold && fullSignActive = false, output "Parking lot has sufficient space.", Parking lot operating normally.
+    end process
+end module

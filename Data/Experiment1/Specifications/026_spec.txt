@@ -1,0 +1,10 @@
+module FactoryEnergyMonitoring
+    var: energyUsed, productionOutput, efficiency, maxAllowedUsage: real 
+    var energyLog: sequence of string
+    process recordUsage(energyUsed: real, productionOutput: real)
+        functional scenario form:
+        energyUsed <= maxAllowedUsage && energyLog = energyLog ⨁ ("Usage Recorded: " + energyUsed + " kWh"), Energy usage recorded successfully.
+        ||
+        energyUsed > maxAllowedUsage && energyLog = energyLog ⨁ ("Overuse Warning: " + energyUsed + " kWh"), Overuse warning triggered.
+    end process
+end module

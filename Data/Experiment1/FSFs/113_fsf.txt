@@ -1,0 +1,5 @@
+        currentGasLevel > dangerThreshold && emergencyShutdown = true, output "ALERT: Critical gas leak detected (" + currentGasLevel + "% LEL). Emergency shutdown initiated.", Emergency shutdown activated.
+        ||
+        currentGasLevel <= dangerThreshold && emergencyShutdown = false, output "WARNING: Gas level high (" + currentGasLevel + "% LEL). Immediate attention required.", Gas warning alert triggered.
+        ||
+        currentGasLevel <= warningThreshold && emergencyShutdown = false, output "Gas concentration is within safe limits (" + currentGasLevel + "% LEL).", Gas level is within safe range.

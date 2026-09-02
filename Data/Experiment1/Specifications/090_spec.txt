@@ -1,0 +1,12 @@
+module SmartGreenhouseCO2Control
+    var currentCO2, minCO2, maxCO2: real  
+    var currentVentSetting, defaultVentSetting: real  
+    process updateCO2(newCO2: real) returns (currentCO2: real, currentVentSetting: real)
+        functional scenario form:
+        currentCO2 > maxCO2 && currentVentSetting = 100.0, output "High CO₂: " + currentCO2 + " ppm. Ventilation set to 100%.", Ventilation set to maximum (100%).
+        ||
+        currentCO2 < minCO2 && currentVentSetting = 0.0, output "Low CO₂: " + currentCO2 + " ppm. Ventilation set to 0%.", Ventilation set to minimum (0%).
+        ||
+        currentCO2 >= minCO2  && currentVentSetting = defaultVentSetting, output "CO₂ optimal: " + currentCO2 + " ppm. Ventilation remains at " + defaultVentSetting + "%.", Ventilation remains at default setting.
+    end process
+end module

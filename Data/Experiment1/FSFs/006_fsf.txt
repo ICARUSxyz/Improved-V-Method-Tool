@@ -1,0 +1,5 @@
+        transferAmount <= senderBalance && flag = true and senderBalance = senderBalance - transferAmountand recipientBalance = recipientBalance + transferAmount and transactionLog = transactionLog ⨁ ("Transfer recorded"), Valid transfer, amount deducted and added to recipient, transaction logged
+        ||
+        transferAmount > senderBalance && flag = false, Invalid transfer, insufficient funds, values unchanged
+        ||
+        transferAmount <= 0 && flag = false, Invalid transfer, amount must be positive, values unchanged

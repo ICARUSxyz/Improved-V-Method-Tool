@@ -1,0 +1,5 @@
+		amount <= accountBalance && flag = true and accountBalance = accountBalance – amount, Valid withdrawal, balance updated, amount meets all conditions 
+|| 
+amount > accountBalance && flag = false, Invalid withdrawal, insufficient account balance 
+|| 
+amount <= 0 && flag = false, Invalid withdrawal, amount must be greater than zero

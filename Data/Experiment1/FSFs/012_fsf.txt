@@ -1,0 +1,5 @@
+        |activeCharging| < chargingSlots && flag = true and activeCharging = activeCharging ⨁ (licensePlate, chargeTime), Charging slot assigned successfully.
+        ||
+        |activeCharging| >= chargingSlots && flag = false and waitingQueue = waitingQueue ⨁ (licensePlate, chargeTime), All slots occupied! Vehicle added to waiting queue.
+        ||
+        chargeTime <= 0 && flag = false, Invalid charging time! Request rejected.

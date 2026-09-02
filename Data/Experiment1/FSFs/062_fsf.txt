@@ -1,0 +1,3 @@
+        currentGasLevel <= maxSafeLevel && Gas concentration updated successfully.
+        ||
+        currentGasLevel > maxSafeLevel && gasSupplyActive = false, Gas leak detected, gas supply shut off.

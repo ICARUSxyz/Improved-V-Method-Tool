@@ -1,0 +1,5 @@
+        currentVoltage < minVoltage && inverterOutput = inverterOutput * 1.1, output "ALERT: Voltage too low (" + currentVoltage + " V). Inverter output increased to " + inverterOutput + " V.", Inverter output increased.
+        ||
+        currentVoltage > maxVoltage && inverterOutput = inverterOutput * 0.9, output "ALERT: Voltage too high (" + currentVoltage + " V). Inverter output decreased to " + inverterOutput + " V.", Inverter output decreased.
+        ||
+        currentVoltage >= minVoltage && output "Voltage is optimal (" + currentVoltage + " V). Inverter output remains at " + inverterOutput + " V.", No adjustment required.

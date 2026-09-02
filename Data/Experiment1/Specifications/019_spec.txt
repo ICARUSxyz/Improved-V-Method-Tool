@@ -1,0 +1,12 @@
+module ATMSystem
+	var amount: real 
+		accountBalance = 1000 //initial balance
+	process isValidWithdrawal(amount: real) flag: boolean
+functional scenario form:
+		amount <= accountBalance && flag = true and accountBalance = accountBalance – amount, Valid withdrawal, balance updated, amount meets all conditions 
+|| 
+amount > accountBalance && flag = false, Invalid withdrawal, insufficient account balance 
+|| 
+amount <= 0 && flag = false, Invalid withdrawal, amount must be greater than zero
+	end process
+end module

@@ -1,0 +1,5 @@
+        currentPressure < minPressure && pumpActive = true, releaseValveActive = false, output "ALERT: Water pressure too low (" + currentPressure + " bar). Activating water pump.", Water pump activated.
+        ||
+        currentPressure > maxPressure && pumpActive = false, releaseValveActive = true, output "ALERT: Water pressure too high (" + currentPressure + " bar). Activating pressure release valve.", Pressure release valve activated.
+        ||
+        currentPressure >= minPressure && pumpActive = false, releaseValveActive = false, output "Water pressure optimal (" + currentPressure + " bar). No action required.", No control action required.

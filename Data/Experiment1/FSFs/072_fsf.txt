@@ -1,0 +1,3 @@
+        currentLoad <= maxCapacity && calculatedCycleTime = baseCycleTime + (currentLoad / maxCapacity) * baseCycleTime, calculatedWaterUsage = currentLoad * waterPerKg, output "Load accepted: " + currentLoad + " kg, Cycle Time: " + calculatedCycleTime + " minutes, Water Usage: " + calculatedWaterUsage + " liters", Optimal cycle and water usage calculated.
+        ||
+        currentLoad > maxCapacity && calculatedCycleTime = 0, calculatedWaterUsage = 0, output "WARNING: Load exceeds maximum capacity.", Overload warning triggered, outputs zero values.

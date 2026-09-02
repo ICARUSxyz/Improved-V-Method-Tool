@@ -1,0 +1,12 @@
+module SmartGasWaterHeaterControl
+    var currentTemperature, minTemperature, maxTemperature: real
+    var burnerActive: boolean
+    process updateTemperature(newTemperature: real) returns (currentTemperature: real, burnerActive: boolean)
+        functional scenario form:
+        currentTemperature < minTemperature && burnerActive = true, Burner activated.
+        ||
+        currentTemperature > maxTemperature && burnerActive = false, Burner deactivated.
+        ||
+        currentTemperature <= maxTemperature && burnerActive = false, Burner remains off.
+    end process
+end module

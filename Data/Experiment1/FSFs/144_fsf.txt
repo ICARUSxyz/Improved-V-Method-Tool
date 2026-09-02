@@ -1,0 +1,13 @@
+  f = 0                                         && ex = NullArgumentException ||
+  maxEval <= 0                                      && ex = NotStrictlyPositiveException ||
+  relativeAccuracy <= 0    && ex = NotStrictlyPositiveException ||
+  minimalIterationCount < MIN_TRAPEZOID_ITER       && ex = NumberIsTooSmallException ||
+  maximalIterationCount > MAX_TRAPEZOID_ITER       && ex = NumberIsTooLargeException ||
+  minimalIterationCount >= maximalIterationCount    && ex = NumberIsTooSmallException ||
+  isNaN=1                        && ex = NotANumberException ||
+  isInfinite=1            && ex = NotFiniteNumberException ||
+  min >= max                                        && ex = NumberIsTooLargeException ||
+evaluations_used > maxEval        && ex = TooManyEvaluationsException ||
+ iterations_used >= maximalIterationCount                 && ex = MaxCountExceededException ||
+evaluations_used <= maxEval                                                  && ex = None
+

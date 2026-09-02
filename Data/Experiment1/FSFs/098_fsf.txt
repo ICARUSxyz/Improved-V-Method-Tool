@@ -1,0 +1,3 @@
+        currentReferenceRate > referenceRateThreshold && currentLoanRate = baseInterestRate + (currentReferenceRate - referenceRateThreshold) * 0.5, output "ALERT: High reference rate (" + currentReferenceRate + "%). Loan interest rate adjusted to " + currentLoanRate + "%.", Loan interest rate increased.
+        ||
+        currentReferenceRate <= referenceRateThreshold && currentLoanRate = baseInterestRate, output "Reference rate normal (" + currentReferenceRate + "%). Loan interest rate remains " + currentLoanRate + "%.", Loan interest rate remains unchanged.

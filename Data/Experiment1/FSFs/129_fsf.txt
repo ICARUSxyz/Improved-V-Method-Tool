@@ -1,0 +1,5 @@
+        currentPowerOutput >= minOptimalPower && Power output maintained optimally.
+        ||
+        currentPowerOutput < minOptimalPower && panelTiltAngle = panelTiltAngle + 5.0, Panel tilt increased to enhance sunlight absorption.
+        ||
+        currentPowerOutput > maxOptimalPower && panelTiltAngle = panelTiltAngle - 5.0, Panel tilt reduced to prevent overexposure.

@@ -1,0 +1,21 @@
+module EVChargingSystem
+    var chargingSlots: integer 
+    var waitingQueue: sequence of (string, real) 
+    var activeCharging: sequence of (string, real)
+    var transactionLog: sequence of string
+    process requestCharging(licensePlate: string, chargeTime: real) flag: boolean
+functional scenario form:
+        |activeCharging| < chargingSlots && flag = true and activeCharging = activeCharging ⨁ (licensePlate, chargeTime), Charging slot assigned successfully.
+        ||
+        |activeCharging| >= chargingSlots && flag = false and waitingQueue = waitingQueue ⨁ (licensePlate, chargeTime), All slots occupied! Vehicle added to waiting queue.
+        ||
+        chargeTime <= 0 && flag = false, Invalid charging time! Request rejected.
+    end process
+
+    process completeCharging(licensePlate: string) 
+        functional scenario form:
+        (licensePlate ∈ activeCharging) && activeCharging = remove(activeCharging, licensePlate∧ transactionLog = transactionLog ⨁ "Charging completed for " + licensePlate∧ (if |waitingQueue| > 0 then activeCharging = activeCharging ⨁ first(waitingQueue)) Charging completed, slot freed, next in queue assigned.
+        OR
+        (licensePlate ∉ activeCharging) && Vehicle not found in active charging slots.
+    end process
+end module

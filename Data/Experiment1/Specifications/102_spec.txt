@@ -1,0 +1,11 @@
+module SmartGrowLightControl
+    var currentIntensity, minOptimalIntensity, maxOptimalIntensity, brightness: real
+    process updateIntensity(newIntensity: real) returns (currentIntensity: real, brightness: real)
+        functional scenario form:
+        currentIntensity < minOptimalIntensity && brightness = 100.0, output "ALERT: Light intensity (" + currentIntensity + " lumens) is too low. Brightness set to 100%.", Brightness increased to 100%.
+        ||
+        currentIntensity > maxOptimalIntensity && brightness = 50.0, output "ALERT: Light intensity (" + currentIntensity + " lumens) is too high. Brightness set to 50%.", Brightness reduced to 50%.
+        ||
+        currentIntensity <= maxOptimalIntensity && brightness = 75.0, output "Optimal light intensity (" + currentIntensity + " lumens). Brightness maintained at 75%.", Brightness set to 75%.
+    end process
+end module

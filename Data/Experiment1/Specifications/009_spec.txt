@@ -1,0 +1,12 @@
+module IntelligentTrafficControl
+    var greenTime, trafficDensity: integer 
+    var signalLog: sequence of string 
+    process updateGreenTime(trafficDensity: integer) 
+        functional scenario form:
+        trafficDensity > 80 and trafficDensity <= 100 && greenTime = 45, High traffic! Green time updated to 45 seconds.
+        ||
+        trafficDensity > 50 and trafficDensity <= 100  && greenTime = 30, Moderate traffic! Green time updated to 30 seconds.
+        ||
+        trafficDensity <= 50 and trafficDensity >= 0 && greenTime = 15 Low traffic! Green time updated to 15 seconds.
+    end process
+end module

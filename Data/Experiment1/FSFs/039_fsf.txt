@@ -1,0 +1,3 @@
+currentPM25 <= maxPM25 && ventilationActive = false, log = log ⨁ ("Air Quality Normal. Ventilation Standby."), Air quality normal, no action needed.
+        ||
+currentPM25 > maxPM25 && ventilationActive = true, log = log ⨁ ("Air Quality Alert! Ventilation Activated."), Air quality alert, ventilation activated.

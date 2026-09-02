@@ -1,0 +1,11 @@
+module SmartWaterPumpControl
+    var currentFlowRate, minFlowRate, maxFlowRate, pumpSpeed: real
+    process updateFlowRate(newFlowRate: real) returns (currentFlowRate: real, pumpSpeed: real)
+        functional scenario form:
+        currentFlowRate < minFlowRate && pumpSpeed = min(pumpSpeed * 1.2, 100.0), Pump speed increased.
+        ||
+        currentFlowRate > maxFlowRate && pumpSpeed = max(pumpSpeed * 0.8, 20.0), Pump speed decreased.
+        ||
+        currentFlowRate <= maxFlowRate && Pump speed unchanged.
+    end process
+end module

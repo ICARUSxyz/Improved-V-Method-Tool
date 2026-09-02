@@ -1,0 +1,15 @@
+module SmartGymEquipmentUsage
+    var currentUsers, maxCapacity: integer 
+    var log: sequence of string 
+    process useEquipment(numUsers: integer)
+        functional scenario form:
+        currentUsers + numUsers <= maxCapacity && currentUsers = currentUsers + numUsers, log = log ⨁ ("Members Started Using Equipment | New Count: " + currentUsers + "/" + maxCapacity), Members successfully started using the equipment.
+        ||
+        currentUsers + numUsers > maxCapacity && log = log ⨁ ("Overcrowding Alert: Suggested alternative exercises."), Overcrowding warning triggered, suggesting alternatives.
+    end process
+
+    process leaveEquipment(numUsers: integer)
+        functional scenario form:
+        Members left the equipment, usage updated.
+    end process
+end module

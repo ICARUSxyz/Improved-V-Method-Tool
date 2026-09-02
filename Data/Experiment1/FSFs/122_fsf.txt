@@ -1,0 +1,3 @@
+        currentCO <= maxCO  && ventilationActive = false, log = log ⨁ ("Air Quality Normal. Ventilation Standby."), Air quality normal, no action needed.
+        ||
+        currentCO > maxCO  && ventilationActive = true, log = log ⨁ ("Air Quality Alert! Ventilation Activated."), Air quality alert, ventilation activated.

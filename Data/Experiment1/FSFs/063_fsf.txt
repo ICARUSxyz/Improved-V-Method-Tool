@@ -1,0 +1,5 @@
+        currentWaterLevel >= minWaterLevel && pumpActive = pumpActive, Water level maintained.
+        ||
+        currentWaterLevel < minWaterLevel && pumpActive = true, Water pump activated.
+        ||
+        currentWaterLevel > maxWaterLevel && pumpActive = false, Water pump deactivated.

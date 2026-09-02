@@ -1,0 +1,11 @@
+module SmartWindTurbineControl
+    var currentWindSpeed, minWindSpeed, maxWindSpeed, maxPowerOutput, currentPowerOutput: real
+    process updateWindSpeed(newWindSpeed: real) returns (currentWindSpeed: real, currentPowerOutput: real)
+        functional scenario form:
+        currentWindSpeed < minWindSpeed && currentPowerOutput = 0.0, output "ALERT: Wind speed too low (" + currentWindSpeed + " m/s). Power generation halted.", Power generation halted.
+        ||
+        currentWindSpeed > maxWindSpeed && currentPowerOutput = 0.0, output "ALERT: Wind speed too high (" + currentWindSpeed + " m/s). Turbine shut down for safety.", Turbine shut down for safety.
+        ||
+        currentWindSpeed >= minWindSpeed && currentPowerOutput = maxPowerOutput * (currentWindSpeed / maxWindSpeed)^3, output "Wind speed: " + currentWindSpeed + " m/s. Power output: " + currentPowerOutput + " MW. Turbine operating normally.", Power output adjusted based on wind speed.
+    end process
+end module

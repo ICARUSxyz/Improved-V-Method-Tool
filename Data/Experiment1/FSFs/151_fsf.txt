@@ -1,0 +1,8 @@
+  d < 1                                           && ex = NumberIsTooSmallException ||
+ elements < d + 1                && ex = NumberIsTooSmallException ||
+  maxDarkFraction < 0      && ex = OutOfRangeException ||
+darkThreshold > 1          && ex = OutOfRangeException ||
+  brightnessExponent <= 0                          && ex = NotStrictlyPositiveException ||
+  sphereRadius <= 0                                && ex = NotStrictlyPositiveException ||
+finite=0                        && ex = NotFiniteNumberException ||
+finite=1                                   && ex = None

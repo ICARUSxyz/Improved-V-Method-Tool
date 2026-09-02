@@ -1,0 +1,9 @@
+module SmartDronePayloadControl
+    var currentPayload, maxPayload, baseFlightSpeed, currentFlightSpeed: real
+    process updatePayload(newPayload: real) returns (currentPayload: real, currentFlightSpeed: real)
+        functional scenario form:
+        currentPayload <= maxPayload && currentFlightSpeed = baseFlightSpeed * (1 - 0.5 * (currentPayload / maxPayload)), Flight speed is adjusted according to payload.
+        ||
+        currentPayload > maxPayload && currentFlightSpeed = 0, Overload warning triggered, flight speed set to 0.
+    end process
+end module

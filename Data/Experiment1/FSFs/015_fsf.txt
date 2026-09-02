@@ -1,0 +1,5 @@
+        duration <= maxDuration && flag = true and meetings = meetings ⨁ (organizer, startTime, duration)and meetingLog = meetingLog ⨁ ("Scheduled: " + organizer + " from " + startTime + ":00 to " + (startTime + duration) + ":00"), Meeting scheduled successfully.
+        ||
+        duration > maxDuration && flag = false, Invalid duration! Meeting request rejected.
+        ||
+        conflictDetected=1 && flag = false, Meeting conflict detected! Scheduling failed.    

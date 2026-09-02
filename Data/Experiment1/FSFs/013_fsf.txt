@@ -1,0 +1,3 @@
+quantity <= stock && flag = true and stock = stock – quantityand transactionLog = transactionLog ⨁ ("Sold: " + quantity + " items") and if stock < reorderThreshold then pendingOrders = pendingOrders ⨁ reorderAmount, Valid sale, stock updated, check for replenishment
+        ||
+        quantity > stock && flag = false, Invalid sale, insufficient stock, no changes

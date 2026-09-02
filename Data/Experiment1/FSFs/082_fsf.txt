@@ -1,0 +1,5 @@
+        currentNutrientLevel < minNutrientLevel && dispensingActive = true, Fertilizer dispenser activated.
+        ||
+        currentNutrientLevel > maxNutrientLevel && dispensingActive = false, Fertilizer dispenser deactivated.
+        ||
+        currentNutrientLevel >= minNutrientLevel && dispensingActive = false, Dispenser remains off.

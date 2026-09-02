@@ -1,0 +1,9 @@
+module SmartRefrigeratorDoorControl
+    var currentOpenTime, maxOpenTime: real
+    process updateDoorOpenTime(newOpenTime: real) returns (currentOpenTime: real)
+        functional scenario form:
+            currentOpenTime > maxOpenTime && output "ALERT: Door open time (" + currentOpenTime + " s) exceeds maximum allowed (" + maxOpenTime + " s). Please close the door to save energy.", Alert triggered for excessive door open time.
+            ||
+            currentOpenTime <= maxOpenTime && output "Door open time (" + currentOpenTime + " s) is within safe limits.", No action required; door open time is acceptable.
+    end process
+end module

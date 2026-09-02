@@ -1,0 +1,19 @@
+module SmartAirPurifierControl
+    var pm25, minFanSpeed, maxFanSpeed, currentFanSpeed: real 
+    var filterUsageHours, filterReplacementThreshold: real    
+    process updateAirQuality(newPM25: real) returns (currentFanSpeed: real)
+        functional scenario form:
+            pm25 >= 75 && currentFanSpeed = maxFanSpeed, Fan Speed set to maximum.
+            ||
+            pm25 <= 35 && currentFanSpeed = minFanSpeed, Fan Speed set to minimum.
+            ||
+            35 < pm25 and pm25< 75 && currentFanSpeed = minFanSpeed + (maxFanSpeed - minFanSpeed) * ((pm25 - 35) / (75 - 35)), Fan Speed calculated by linear interpolation.
+    end process
+
+    process updateFilterUsage(additionalHours: real) returns (filterUsageHours: real)
+        functional scenario form:
+            (filterUsageHours < filterReplacementThreshold) && output "Filter usage updated: " + filterUsageHours + " hours." Filter usage updated.
+            OR
+            (filterUsageHours ≥ filterReplacementThreshold) && output "Filter replacement needed. Total usage: " + filterUsageHours + " hours.", Filter replacement alert triggered.
+    end process
+end module

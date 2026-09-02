@@ -1,0 +1,9 @@
+module SmartVibrationMonitoring
+    var currentVibration, maxVibrationThreshold: real
+    process updateVibration(newVibration: real) returns (currentVibration: real)
+        functional scenario form:
+        currentVibration > maxVibrationThreshold && output "ALERT: Vibration level (" + currentVibration + " mm/s) exceeds threshold (" + maxVibrationThreshold + " mm/s). Maintenance required.", Vibration exceeds threshold; alert triggered.
+        ||
+        currentVibration <= maxVibrationThreshold && output "Vibration level (" + currentVibration + " mm/s) is within safe limits.", Vibration within safe range; no action required.
+    end process
+end module

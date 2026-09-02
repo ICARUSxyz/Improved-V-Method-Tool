@@ -1,0 +1,5 @@
+        currentTemperature <= maxTemperature && Water temperature maintained.
+        ||
+        currentTemperature < minTemperature && heatingActive = true, Heating system activated.
+        ||
+        currentTemperature > maxTemperature && heatingActive = false, Heating system deactivated.

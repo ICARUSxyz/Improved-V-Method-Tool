@@ -1,0 +1,11 @@
+module SmartOvenControl
+    var currentTemperature, targetTemperature, baseCookingTime, calculatedCookingTime: real
+    process updateTemperature(changeAmount: real) returns (calculatedCookingTime: real, currentTemperature: real)
+        functional scenario form:
+        currentTemperature < targetTemperature && calculatedCookingTime = baseCookingTime * 1.1, Cooking time extended due to low temperature.
+        ||
+        currentTemperature > targetTemperature && calculatedCookingTime = baseCookingTime * 0.9, Cooking time reduced due to high temperature.
+        ||
+        currentTemperature = targetTemperature && calculatedCookingTime = baseCookingTime, Cooking time remains at base value.
+    end process
+end module

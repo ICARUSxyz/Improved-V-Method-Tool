@@ -1,0 +1,17 @@
+module SmartGasLeakDetection
+    var currentGasLevel, maxSafeLevel: real 
+    var gasSupplyActive: boolean 
+    process updateGasLevel(changeAmount: real)
+        functional scenario form:
+        currentGasLevel <= maxSafeLevel && Gas concentration updated successfully.
+        ||
+        currentGasLevel > maxSafeLevel && gasSupplyActive = false, Gas leak detected, gas supply shut off.
+    end process
+
+    process resetGasSupply()
+        functional scenario form:
+        (currentGasLevel ≤ maxSafeLevel) && gasSupplyActive = true, Gas supply reactivated.
+        OR
+        (currentGasLevel > maxSafeLevel) && gasSupplyActive = false, Gas supply remains shut off.
+    end process
+end module

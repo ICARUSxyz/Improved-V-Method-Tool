@@ -1,0 +1,5 @@
+        score >= 0 and score <= 90 && flag = true and scores = scores ⨁ (name, score) and rankingHistory = rankingHistory ⨁ ("Recorded: " + name + " - " + score), Valid score, recorded successfully
+        ||
+score > 90 and score <= 100 && flag = true and scores = scores ⨁ (name, score) and rankingHistory = rankingHistory ⨁ ("Recorded: " + name + " - " + score), Valid score, recorded successfully
+        ||
+        score < 0 || score > 100 && flag = false, Invalid score, rejected

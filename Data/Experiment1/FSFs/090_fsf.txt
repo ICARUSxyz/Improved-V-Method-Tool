@@ -1,0 +1,5 @@
+        currentCO2 > maxCO2 && currentVentSetting = 100.0, output "High CO₂: " + currentCO2 + " ppm. Ventilation set to 100%.", Ventilation set to maximum (100%).
+        ||
+        currentCO2 < minCO2 && currentVentSetting = 0.0, output "Low CO₂: " + currentCO2 + " ppm. Ventilation set to 0%.", Ventilation set to minimum (0%).
+        ||
+        currentCO2 >= minCO2  && currentVentSetting = defaultVentSetting, output "CO₂ optimal: " + currentCO2 + " ppm. Ventilation remains at " + defaultVentSetting + "%.", Ventilation remains at default setting.

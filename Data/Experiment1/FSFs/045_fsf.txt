@@ -1,0 +1,3 @@
+        currentLoad + numPassengers <= maxCapacity && currentLoad = currentLoad + numPassengers, log = log ⨁ ("Passengers Entered: " + numPassengers + " | Load: " + currentLoad + "/" + maxCapacity), Passengers entered successfully.
+        ||
+        currentLoad + numPassengers > maxCapacity && log = log ⨁ ("Overload Warning: Redirecting passengers."), Overload warning triggered, passengers redirected.

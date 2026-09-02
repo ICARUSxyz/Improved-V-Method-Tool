@@ -1,0 +1,20 @@
+module SmartStreetlightControl
+    var currentBrightness, maxBrightness, minBrightness, ambientLight: real
+    var motionDetected: boolean 
+    var log: sequence of string 
+    process updateAmbientLight(newLightLevel: real)
+        functional scenario form:
+        ambientLight > 500 && Brightness reduced for energy saving.
+        ||
+        ambientLight <= 500 and motionDetected=0 && Brightness increased for safety.
+        ||
+        ambientLight <= 500 and motionDetected=1 && Brightness set to medium level.
+    end process
+
+    process detectMotion(isMotionDetected: boolean)
+        functional scenario form:
+        (motionDetected) && Brightness increased for pedestrian safety.
+        OR
+        (¬motionDetected) && Brightness adjusted for energy efficiency.
+    end process
+end module

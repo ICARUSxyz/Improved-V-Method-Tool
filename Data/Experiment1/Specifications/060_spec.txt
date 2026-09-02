@@ -1,0 +1,18 @@
+module SmartParkingLotManagement
+    var availableSpaces, totalSpaces: integer 
+    var waitlist: sequence of string
+    var log: sequence of string 
+    process parkVehicle(vehicle: string)
+        functional scenario form:
+        availableSpaces > 0 && availableSpaces = availableSpaces – 1, log = log ⨁ (vehicle + " parked | Remaining: " + availableSpaces + "/" + totalSpaces), Vehicle parked successfully.
+        ||
+        availableSpaces = 0 && waitlist = waitlist ⨁ vehicle, log = log ⨁ (vehicle + " added to waitlist | No spaces available."), Vehicle added to waitlist.
+    end process
+
+    process leaveParking(vehicle: string)
+        functional scenario form:
+        (size(waitlist) > 0) && let nextVehicle = head(waitlist) in waitlist = tail(waitlist), log = log ⨁ (vehicle + " left | Assigned to " + nextVehicle), Parking assigned to next vehicle in waitlist.
+        OR
+        (size(waitlist) = 0) && availableSpaces = min(totalSpaces, availableSpaces + 1)，log = log ⨁ (vehicle + " left | Available: " + availableSpaces + "/" + totalSpaces), Parking space returned to availability.
+    end process
+end module

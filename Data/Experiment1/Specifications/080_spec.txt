@@ -1,0 +1,12 @@
+module SmartGreenhouseHumidityControl
+    var currentHumidity, minHumidity, maxHumidity: real
+    var humidifierActive, dehumidifierActive: boolean
+    process updateHumidity(newHumidity: real) returns (currentHumidity: real, humidifierActive: boolean, dehumidifierActive: boolean)
+        functional scenario form:
+        currentHumidity < minHumidity && humidifierActive = true, dehumidifierActive = false, Humidifier activated.
+        ||
+        currentHumidity > maxHumidity && humidifierActive = false, dehumidifierActive = true, Dehumidifier activated.
+        ||
+        currentHumidity >= minHumidity && humidifierActive = false, dehumidifierActive = false, No device activated.
+    end process
+end module

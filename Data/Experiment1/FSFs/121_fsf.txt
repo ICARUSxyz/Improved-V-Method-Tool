@@ -1,0 +1,5 @@
+        currentTemp <= maxTemp && Temperature updated successfully.
+        ||
+        currentTemp > maxTemp && Over-temperature warning triggered, risk of spoilage.
+        ||
+        currentTemp < minTemp && Freezing alert triggered, potential product damage.

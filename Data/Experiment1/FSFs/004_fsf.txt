@@ -1,0 +1,5 @@
+		grade >= 0 and grade <= 100 && Valid grade entry, final grade recorded 
+||
+grade < 0 && Invalid grade, grade rejected
+||
+grade > 100 && Invalid grade, grade rejected

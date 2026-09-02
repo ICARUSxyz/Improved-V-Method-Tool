@@ -1,0 +1,12 @@
+module SmartWaterPurifierControl
+    var currentTDS, maxTDSThreshold, minTDSThreshold: real 
+    var filterCleaningActive: boolean 
+    process updateTDS(newTDS: real) returns (currentTDS: real, filterCleaningActive: boolean)
+        functional scenario form:
+        currentTDS > maxTDSThreshold && filterCleaningActive = true, Filter cleaning activated.
+        ||
+        currentTDS < minTDSThreshold && filterCleaningActive = false, Filter cleaning deactivated.
+        ||
+        currentTDS <= maxTDSThreshold && filterCleaningActive = false, No action required.
+    end process
+end module

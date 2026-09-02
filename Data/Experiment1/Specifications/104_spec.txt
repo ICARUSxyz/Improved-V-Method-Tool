@@ -1,0 +1,9 @@
+module SmartNoiseMonitoring
+    var currentNoise, noiseThreshold: real
+    process updateNoise(newNoise: real) returns (currentNoise: real)
+        functional scenario form:
+        currentNoise > noiseThreshold && output "ALERT: Noise level (" + currentNoise + " dB) exceeds threshold (" + noiseThreshold + " dB). Intervention required.", High noise alert triggered.
+        ||
+        currentNoise <= noiseThreshold && output "Noise level (" + currentNoise + " dB) is within safe limits.", Noise level is acceptable.
+    end process
+end module

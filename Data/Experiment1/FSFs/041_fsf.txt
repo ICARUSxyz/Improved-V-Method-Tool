@@ -1,0 +1,5 @@
+currentPressure >= minPressure && log = log ⨁ ("Water Pressure Updated: " + currentPressure + " bar"), Water pressure updated successfully.
+        ||
+        currentPressure > maxPressure && log = log ⨁ ("Overpressure Warning: " + currentPressure + " bar, Risk of Pipe Bursting."), Overpressure warning triggered, potential pipe damage.
+        ||
+        currentPressure < minPressure && log = log ⨁ ("Leakage Alert: " + currentPressure + " bar, Immediate Inspection Required."), Leak detection alert triggered, inspection required.

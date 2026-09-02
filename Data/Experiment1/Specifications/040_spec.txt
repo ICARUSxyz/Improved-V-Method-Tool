@@ -1,0 +1,15 @@
+module SmartWarehouseRobotMonitoring
+    var currentLoad, maxLoad, taskWeight: real 
+    var log: sequence of string 
+    process assignTask(taskWeight: real)
+        functional scenario form:
+        currentLoad + taskWeight <= maxLoad && currentLoad = currentLoad + taskWeight, log = log ⨁ ("Task Assigned: " + taskWeight + " kg | New Load: " + currentLoad + " kg"), Task assigned successfully.
+        ||
+        currentLoad + taskWeight > maxLoad && log = log ⨁ ("Overload Warning: Task " + taskWeight + " kg rejected."), Overload warning triggered, task rejected.
+    end process
+
+    process completeTask(taskWeight: real)
+        functional scenario form:
+        taskWeight > 0 && currentLoad = max(0, currentLoad - taskWeight), log = log ⨁ ("Task Completed: " + taskWeight + " kg | Remaining Load: " + currentLoad + " kg"), Task completed, remaining load updated.
+    end process
+end module

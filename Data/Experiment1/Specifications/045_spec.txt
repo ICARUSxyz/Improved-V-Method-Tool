@@ -1,0 +1,22 @@
+module SmartElevatorScheduling
+    var currentLoad, maxCapacity, currentFloor, targetFloor: integer 
+    var log: sequence of string
+    process enterElevator(numPassengers: integer)
+        functional scenario form:
+        currentLoad + numPassengers <= maxCapacity && currentLoad = currentLoad + numPassengers, log = log ⨁ ("Passengers Entered: " + numPassengers + " | Load: " + currentLoad + "/" + maxCapacity), Passengers entered successfully.
+        ||
+        currentLoad + numPassengers > maxCapacity && log = log ⨁ ("Overload Warning: Redirecting passengers."), Overload warning triggered, passengers redirected.
+    end process
+
+    process exitElevator(numPassengers: integer)
+        functional scenario form:
+        currentLoad = max(0, currentLoad - numPassengers), log = log ⨁ ("Passengers Exited: " + numPassengers + " | Load: " + currentLoad + "/" + maxCapacity), Passengers exited, load updated.
+    end process
+
+    process moveElevator(targetFloor: integer)
+        functional scenario form:
+        (targetFloor ≠ currentFloor) && log = log ⨁ ("Moved from Floor " + currentFloor + " to Floor " + targetFloor), currentFloor = targetFloor, Elevator moved successfully.
+        OR
+        (targetFloor = currentFloor) && log = log ⨁ ("Elevator already at Floor " + targetFloor), No movement needed.
+    end process
+end module

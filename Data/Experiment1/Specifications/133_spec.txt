@@ -1,0 +1,114 @@
+module SimplexSolver
+type
+tableau: SimplexTableau
+ cutOff: real
+ epsilon: real
+ maxUlps: integer
+ nonNegative: Boolean
+
+process parseOptimizationData(optData: OptimizationData...) result: void
+functional scenario form:
+solutionCallback notin{0} && result = void, reset callback before parsing
+||
+d inset{1,3,5,7,9} && solutionCallback := d && result = void, register solution callback
+||
+d inset{2,4} && pivotSelection := d && result = void, register pivot rule
+end process
+
+process selectPivotColumn(pivotSelection: {DANTZIG, BLAND}, cutOff: real) col: integer 
+functional scenario form:
+(∀ i ∈ [k0, n-1]: OF(i) ≥ 0) && col = null, no negative reduced cost
+OR
+(∃ i ∈ [k0, n-1]: OF(i) < 0) ∧ (pivotSelection = BLAND)
+∧ (∃ r ∈ [k0, m-1]: Precision.compareTo(A(r,i), 0, cutOff) > 0)
+&& col = i, BLAND picks the first (lowest index) valid entering column (early break)
+OR
+(∃ i1 < i2: OF(i1) < 0 ∧ ∀ r: Precision.compareTo(A(r,i1), 0, cutOff) ≤ 0 ∧ OF(i2) < 0
+∧ ∃ r: Precision.compareTo(A(r,i2), 0, cutOff) > 0)
+&& col = i2, first negative column is invalid → continue to next valid one
+OR
+(pivotSelection = DANTZIG ∧ ∃ i*: OF(i*) = min{OF(j)| j∈[k0,n-1]} ∧ OF(i*) < 0) && col = i*, most negative reduced cost
+end process
+
+process isValidPivotColumn(col: integer, cutOff: real) ok: boolean
+functional scenario form:
+(∃ i ∈ [k0, m-1]: Precision.compareTo(A(i,col), 0, cutOff) > 0) && ok = true, at least one positive pivot candidate
+OR
+(∀ i ∈ [k0, m-1]: Precision.compareTo(A(i,col), 0, cutOff) ≤ 0) && ok = false, all candidates ≤ cutOff
+end process
+
+process selectPivotRow(col: integer, cutOff: real, maxUlps: integer, art: integer, off: integer) row: integer 
+functional scenario form:
+(S = ∅) && row = null, unbounded for this entering column
+OR
+(|S| ≥ 1 ∧ ∃! i* ∈ S: MRT(i*) = min{ MRT(j) | j ∈ S }) && row = i*, unique minimum ratio
+OR
+(|S| ≥ 2 ∧ ∃ at least two i ∈ S with equal minimal MRT
+∧ art > 0
+∧ ∃ r ∈ S, ∃ t ∈ [0, art-1]:
+Precision.equals(A(r, off + t), 1, maxUlps) ∧ r = basicRow(off + t))
+&& row = r, tie: prefer row whose basic is an artificial variable (force artificial out)
+OR
+(|S| ≥ 2 ∧ ∃ at least two i ∈ S with equal minimal MRT
+∧ (art = 0 ∨ ∀ r ∈ S, ∀ t ∈ [0, art-1]:
+¬(Precision.equals(A(r, off + t), 1, maxUlps) ∧ r = basicRow(off + t))))
+∧ row = argmin_{r ∈ S with minimal MRT} basicVar(r),
+tie with no artificial-basic row → Bland’s rule on smallest basic index
+end process
+
+process doOneIteration(cutOff: real, pivotSelection: {DANTZIG, BLAND}, maxUlps: integer) effect: {RowOp, Unbounded, TooManyIter}
+functional scenario form:
+(iterationCount exceeds limit) && effect = TooManyIter, incrementIterationCount triggers limit
+OR
+(selectPivotColumn(...) = c ∧ selectPivotRow(c,...) = null) && effect = Unbounded, no leaving row for chosen entering column
+OR
+(selectPivotColumn(...) = c ∧ selectPivotRow(c,...) = r ≠ null
+∧ tableau.performRowOperations(c, r))
+&& effect = RowOp, successful pivot and row operations
+end process
+
+process solvePhase1(epsilon: real, cutOff: real, maxUlps: integer) status: {Skip, Feasible, Infeasible, IterErr, Unbounded}
+functional scenario form:
+(art = 0) && status = Skip, no artificial variables → skip Phase 1
+OR
+(art > 0 ∧ during loop doOneIteration throws TooManyIterationsException) && status = IterErr, iteration limit in Phase 1
+OR
+(art > 0 ∧ during loop doOneIteration throws UnboundedSolutionException) && status = Unbounded, unbounded in Phase 1
+OR
+(art > 0 ∧ isOptimal = true ∧ ¬Precision.equals(A(0, tableau.getRhsOffset()), 0, epsilon))
+&& status = Infeasible, Phase 1 objective W ≠ 0
+OR
+(art > 0 ∧ isOptimal = true ∧ Precision.equals(A(0, tableau.getRhsOffset()), 0, epsilon))
+&& status = Feasible, Phase 1 feasible (W = 0)
+end process
+
+process optimize(nonNegative: boolean, epsilon: real, cutOff: real, maxUlps: integer) result: PointValuePair 
+functional scenario form:
+(solvePhase1(...) = Infeasible) && exception = NoFeasibleSolutionException, no feasible solution in Phase 1
+OR
+(solvePhase1(...) = IterErr) && exception = TooManyIterationsException, iteration limit in Phase 1
+OR
+(solvePhase1(...) = Unbounded) && exception = UnboundedSolutionException, unbounded in Phase 1
+OR
+(solvePhase1(...) = Feasible ∧ during Phase 2 loop doOneIteration throws TooManyIterationsException)
+&& exception = TooManyIterationsException, iteration limit in Phase 2
+OR
+(solvePhase1(...) = Feasible ∧ during Phase 2 loop doOneIteration throws UnboundedSolutionException)
+&& exception = UnboundedSolutionException, unbounded in Phase 2
+OR
+(solvePhase1(...) = Feasible ∧ Phase 2 reaches isOptimal = true
+∧ nonNegative = true
+∧ ∃ i: Precision.compareTo(solution.point[i], 0, epsilon) < 0)
+&& exception = NoFeasibleSolutionException,
+post non-negativity check fails (some component judged negative)
+OR
+(solvePhase1(...) = Feasible ∧ Phase 2 reaches isOptimal = true
+∧ nonNegative = true
+∧ ∀ i: Precision.compareTo(solution.point[i], 0, epsilon) ≥ 0)
+&& result = solution, post non-negativity check passes
+OR
+(solvePhase1(...) = Feasible ∧ Phase 2 reaches isOptimal = true
+∧ nonNegative = false)
+&& result = solution, non-negativity disabled → no post check
+end process
+end module

@@ -1,0 +1,4 @@
+  bandwidth <= 0             && ex = OutOfRangeException ||
+  robustnessIters < 0                             && ex = NotPositiveException ||
+  accuracy <= 0                                   && ex = NotStrictlyPositiveException ||
+  bandwidth > 1                                             && ex = None

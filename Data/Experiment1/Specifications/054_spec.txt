@@ -1,0 +1,13 @@
+module SmartPowerGridLoadBalancing
+    var currentLoad, maxLoad, minLoad: real 
+    var powerSavingMode: boolean 
+    var log: sequence of string 
+    process updateLoad(changeAmount: real)
+        functional scenario form:
+currentLoad >= minLoad && currentLoad = currentLoad + changeAmount, Power load balanced successfully.
+        ||
+        currentLoad > maxLoad && powerSavingMode = true, log = log ⨁ ("Overload Warning: " + currentLoad + " MW, Activating Power-Saving Measures."), Overload warning triggered, power-saving measures activated.
+        ||
+        currentLoad < minLoad && powerSavingMode = false, log = log ⨁ ("Low Demand Info: " + currentLoad + " MW, Storing Surplus Energy."), Low demand detected, surplus energy stored.
+    end process
+end module

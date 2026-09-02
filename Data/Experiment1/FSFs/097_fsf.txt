@@ -1,0 +1,3 @@
+        currentTrafficDensity > maxTrafficDensity && currentSpeedLimit = reducedSpeedLimit, output "ALERT: High traffic density (" + currentTrafficDensity + " vehicles/km). Speed limit reduced to " + currentSpeedLimit + " km/h.", Speed limit reduced.
+        ||
+        currentTrafficDensity <= maxTrafficDensity && currentSpeedLimit = normalSpeedLimit, output "Traffic density normal (" + currentTrafficDensity + " vehicles/km). Speed limit remains " + currentSpeedLimit + " km/h.", Speed limit remains normal.

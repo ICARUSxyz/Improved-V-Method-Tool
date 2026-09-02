@@ -1,0 +1,12 @@
+module SmartCO2ControlSystem
+    var currentCO2, minCO2, maxCO2: real
+    var generatorActive, ventilationActive: boolean 
+    process updateCO2(newCO2: real) returns (currentCO2: real, generatorActive: boolean, ventilationActive: boolean)
+        functional scenario form:
+        currentCO2 < minCO2 && generatorActive = true, ventilationActive = false, output "ALERT: CO2 level is too low (" + currentCO2 + " ppm). Activating CO2 generator.", CO2 generator activated.
+        ||
+        currentCO2 > maxCO2 && generatorActive = false, ventilationActive = true, output "ALERT: CO2 level is too high (" + currentCO2 + " ppm). Activating ventilation system.", Ventilation system activated.
+        ||
+        currentCO2 <= maxCO2 && generatorActive = false, ventilationActive = false, output "CO2 level is optimal (" + currentCO2 + " ppm). No action required.", No control action required.
+    end process
+end module

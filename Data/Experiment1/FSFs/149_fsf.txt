@@ -1,0 +1,20 @@
+  x =0
+      && ex = NullArgumentException ||
+
+  |x| = 0
+      && ex = NoDataException ||
+
+  |x| > |y|
+      && ex = DimensionMismatchException ||
+
+  |x| < 2
+      && ex = NumberIsTooSmallException ||
+
+finite=0
+      && ex = NotFiniteNumberException ||
+
+x<= i-1
+      && ex = NonMonotonicSequenceException ||
+
+finite=1
+      && ex = None

@@ -1,0 +1,12 @@
+module SmartBoilerTemperatureControl
+    var currentTemperature, minTemperature, maxTemperature: real
+    var heatingActive: boolean 
+    process updateTemperature(newTemperature: real) returns (currentTemperature: real, heatingActive: boolean)
+        functional scenario form:
+        currentTemperature < minTemperature && heatingActive = true, output "Low temperature detected: " + currentTemperature + "°C. Heating activated.", Heating activated.
+        ||
+        currentTemperature > maxTemperature && heatingActive = false, output "High temperature detected: " + currentTemperature + "°C. Heating deactivated.", Heating deactivated.
+        ||
+        currentTemperature <= maxTemperature && heatingActive = false, output "Temperature optimal: " + currentTemperature + "°C. Heating remains off.", Heating remains off.
+    end process
+end module

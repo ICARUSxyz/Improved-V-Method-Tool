@@ -1,0 +1,12 @@
+module SmartBoilerTemperatureControl
+    var currentTemperature, maxTemperature, minTemperature: real 
+    var heatingActive: boolean
+    process updateTemperature(changeAmount: real)
+        functional scenario form:
+        currentTemperature >= minTemperature && Water temperature maintained.
+        ||
+        currentTemperature < minTemperature && heatingActive = true, Heating system activated.
+        ||
+        currentTemperature > maxTemperature && heatingActive = false, Heating system deactivated.
+    end process
+end module

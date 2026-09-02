@@ -1,0 +1,3 @@
+        currentLoad + taskWeight <= maxLoad && currentLoad = currentLoad + taskWeight, log = log ⨁ ("Task Assigned: " + taskWeight + " kg | New Load: " + currentLoad + " kg"), Task assigned successfully.
+        ||
+        currentLoad + taskWeight > maxLoad && log = log ⨁ ("Overload Warning: Task " + taskWeight + " kg rejected."), Overload warning triggered, task rejected.

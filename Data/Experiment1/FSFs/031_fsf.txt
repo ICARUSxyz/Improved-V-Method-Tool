@@ -1,0 +1,5 @@
+        currentVoltage <= maxVoltage  && voltageLog = voltageLog ⨁ ("Voltage Updated: " + currentVoltage + " V") Voltage output updated successfully.
+        ||
+        currentVoltage > maxVoltage && voltageLog = voltageLog ⨁ ("Overvoltage Warning: " + currentVoltage + " V, Risk of Electrical Damage."), Overvoltage warning triggered, risk of electrical damage.
+        ||
+        currentVoltage < minVoltage && voltageLog = voltageLog ⨁ ("Low Voltage Alert: " + currentVoltage + " V, Possible Fault or Shading Issue."), Low voltage alert triggered, potential fault detected.

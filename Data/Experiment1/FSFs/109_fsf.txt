@@ -1,0 +1,5 @@
+        currentTemperature < minTemperature && heatingActive = true, output "ALERT: Water temperature too low (" + currentTemperature + "°C). Heating system activated.", Heating system activated.
+        ||
+        currentTemperature > maxTemperature && heatingActive = false, output "ALERT: Water temperature too high (" + currentTemperature + "°C). Heating system deactivated.", Heating system deactivated.
+        ||
+        currentTemperature <= maxTemperature && output "Temperature optimal (" + currentTemperature + "°C). No action needed.", No control action required.

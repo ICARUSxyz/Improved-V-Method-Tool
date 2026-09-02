@@ -1,0 +1,3 @@
+        currentDustLevel > dustThreshold && output "ALERT: Dust level (" + currentDustLevel + "%) exceeds threshold (" + dustThreshold + "%). Cleaning cycle activated.", Cleaning cycle activated.
+        ||
+        currentDustLevel <= dustThreshold && output "Dust level (" + currentDustLevel + "%) is within acceptable limits. No cleaning required.", No cleaning action required.

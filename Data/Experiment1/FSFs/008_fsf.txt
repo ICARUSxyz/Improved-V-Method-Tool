@@ -1,0 +1,5 @@
+        isBusinessClass > 0 and businessSeats > 0 && flag = true and businessSeats = businessSeats - 1and bookingHistory = bookingHistory ⨁ ("Business Class Booking Confirmed"), Valid booking, assigned to Business Class
+        ||
+        ¬isBusinessClass > 0 and economySeats > 0 && flag = true and economySeats = economySeats – 1 and bookingHistory = bookingHistory ⨁ ("Economy Class Booking Confirmed"), Valid booking, assigned to Economy Class
+        ||
+        businessSeats = 0 and economySeats = 0 && flag = false and waitingList = waitingList ⨁ (passenger), Flight full, passenger added to waiting list

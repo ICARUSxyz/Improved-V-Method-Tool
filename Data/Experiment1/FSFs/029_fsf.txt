@@ -1,0 +1,5 @@
+        currentTemp <= maxTemp  && tempLog = tempLog ⨁ ("Temperature Updated: " + currentTemp + "°C"), Temperature updated successfully.
+        ||
+        currentTemp > maxTemp && tempLog = tempLog ⨁ ("Overheat Warning: " + currentTemp + "°C"), Overheat warning triggered.
+        ||
+        currentTemp < minTemp && tempLog = tempLog ⨁ ("Low Temperature Alert: " + currentTemp + "°C, Heating Activated."), Low temperature alert triggered, heating activated.

@@ -1,0 +1,3 @@
+        currentLoad <= maxLoad && log = log ⨁ ("Load Updated: " + currentLoad + " kg"), Passenger entered, load updated.
+        ||
+        currentLoad > maxLoad && log = log ⨁ ("Overload Warning: " + currentLoad + " kg, Reduce Load Immediately."), Overload warning triggered, reduce load.

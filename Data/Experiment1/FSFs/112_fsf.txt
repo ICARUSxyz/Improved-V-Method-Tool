@@ -1,0 +1,5 @@
+        currentHumidity < minHumidity && humidifierActive = true, dehumidifierActive = false, output "ALERT: Humidity too low (" + currentHumidity + "%). Humidifier activated.", Humidifier activated.
+        ||
+        currentHumidity > maxHumidity && humidifierActive = false, dehumidifierActive = true, output "ALERT: Humidity too high (" + currentHumidity + "%). Dehumidifier activated.", Dehumidifier activated.
+        ||
+        currentHumidity >= minHumidity && humidifierActive = false, dehumidifierActive = false, output "Humidity optimal (" + currentHumidity + "%). No action needed.", No control action required.

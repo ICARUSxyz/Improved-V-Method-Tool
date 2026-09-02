@@ -1,0 +1,14 @@
+f =0 && ex = NullArgumentException || 
+maxEval <= 0 && ex = NotStrictlyPositiveException || 
+relativeAccuracy <= 0 && ex = NotStrictlyPositiveException || 
+absoluteAccuracy <= 0 && ex = NotStrictlyPositiveException || 
+minimalIterationCount <= 0 && ex = NotStrictlyPositiveException ||
+ minimalIterationCount >= maximalIterationCount && ex = NumberIsTooSmallException || 
+numberOfPoints < 2 && ex = NumberIsTooSmallException || 
+numberOfPoints > MAX_LEGENDRE_POINTS && ex = NumberIsTooLargeException || 
+interval =1 && ex = NotANumberException || 
+isInfinite=1 && ex = NotFiniteNumberException || 
+min >= max && ex = NumberIsTooLargeException || 
+evaluations_used > maxEval && ex = TooManyEvaluationsException || 
+iterations_used >= maximalIterationCount  && ex = MaxCountExceededException || 
+evaluations_used <= maxEval&& ex = None 

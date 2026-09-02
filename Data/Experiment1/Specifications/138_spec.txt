@@ -1,0 +1,66 @@
+module UnivariateSolverUtils
+type
+lower, upper, a, b, c: real
+    maxEval, maxIter: integer
+    initial, lowerBound, upperBound: real
+    outLower, outUpper: real
+    mid: real
+    ex: set of { None, NullArgument, BadSequence, NoBracketing, TooManyEvaluations, NotANumber }
+
+process isBracketing(f, lower, upper: real) r: boolean, ex: set of { None, NullArgument, BadSequence, NoBracketing, TooManyEvaluations, NotANumber }
+    functional scenario form:
+    f = 0 && ex = NullArgument
+    ||  hasNaN=0 && ex = NotANumber
+    ||  isOrdered=0 && ex = BadSequence
+    ||  bracketed=1 && ex = None && r = true
+    ||  bracketed=0 && ex = None && r = false
+end process
+
+process verifyBracketing(f, lower, upper: real) ex: set of { None, NullArgument, BadSequence, NoBracketing, TooManyEvaluations, NotANumber }
+    functional scenario form:
+    (f = null) && ex = NullArgument
+    OR  (hasNaN(lower,upper)) && ex = NotANumber
+    OR  (¬isOrdered(lower,upper)) && ex = BadSequence
+    OR  (bracketed(yLower,yUpper)) && ex = None
+    OR  (¬bracketed(yLower,yUpper)) && ex = NoBracketing
+end process
+
+process isSequence(a, b, c: real) r: boolean, ex: set of { None, NullArgument, BadSequence, NoBracketing, TooManyEvaluations, NotANumber }
+    functional scenario form:
+    (hasNaN(a,b,c)) && ex = NotANumber
+    OR  (a < b ∧ b < c) && ex = None && r = true
+    OR  (¬(a < b ∧ b < c)) && ex = None && r = false
+end process
+
+process verifySequence(a, b, c: real) ex: set of { None, NullArgument, BadSequence, NoBracketing, TooManyEvaluations, NotANumber }
+    functional scenario form:
+    (hasNaN(a,b,c)) && ex = NotANumber
+    OR  (a < b ∧ b < c) && ex = None
+    OR  (¬(a < b ∧ b < c)) && ex = BadSequence
+end process
+
+process verifyInterval(lower, upper: real) ex: set of { None, NullArgument, BadSequence, NoBracketing, TooManyEvaluations, NotANumber }
+    functional scenario form:
+    (hasNaN(lower,upper)) && ex = NotANumber
+    OR  (lower < upper) && ex = None
+    OR  (¬(lower < upper)) && ex = BadSequence
+end process
+
+process midpoint(a, b) mid: real, ex
+    functional scenario form:
+    (hasNaN(a,b)) && ex = NotANumber
+    OR  (true) && ex = None && mid = (a + b) / 2
+end process
+
+process bracket(f, initial, lowerBound, upperBound, maxIter) outLower: real, outUpper: real, ex
+    functional scenario form:
+        (f = null) && ex = NullArgument
+    OR  (hasNaN(initial,lowerBound,upperBound)) && ex = NotANumber
+    OR  (¬isOrdered(lowerBound, upperBound)) && ex = BadSequence
+    OR  (¬(lowerBound ≤ initial ∧ initial ≤ upperBound)) && ex = BadSequence
+    OR  (yLower = f(lowerBound), yUpper = f(upperBound), bracketed(yLower, yUpper)) && ex = None && outLower = lowerBound && outUpper = upperBound
+    OR  (∃ k ≤ maxIter : ∃ Lk, Uk : lowerBound ≤ Lk < initial < Uk ≤ upperBound ∧bracketed(f(Lk), f(Uk)) ) && ex = None && outLower = Lk && outUpper = Uk
+    OR  (after maxIter expansions and ∀ L,U in [lowerBound, upperBound] around initial : ¬bracketed(f(L),f(U))) && ex = TooManyEvaluations
+end process
+
+end module

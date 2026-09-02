@@ -1,0 +1,39 @@
+module LinearInterpolator
+type
+  x, y: sequence of real
+  n: int
+  ex: set of {
+    None,
+    NullArgumentException,
+    NoDataException,
+    DimensionMismatchException,
+    NumberIsTooSmallException,
+    NonMonotonicSequenceException,
+    NotFiniteNumberException
+  }
+
+process Interpolate(x, y: sequence of real) outputs: ex: set of {…}
+Functional Scenario Form
+  x =0
+      && ex = NullArgumentException ||
+
+  |x| = 0
+      && ex = NoDataException ||
+
+  |x| > |y|
+      && ex = DimensionMismatchException ||
+
+  |x| < 2
+      && ex = NumberIsTooSmallException ||
+
+finite=0
+      && ex = NotFiniteNumberException ||
+
+x<= i-1
+      && ex = NonMonotonicSequenceException ||
+
+finite=1
+      && ex = None
+end_process
+
+end_module

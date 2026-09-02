@@ -1,0 +1,13 @@
+module LibrarySystem
+	var maxBorrowLimit, userBorrowedBooks, bookStock, numBooks: integer 
+	process borrowBook(numBooks: integer) flag: boolean
+		functional scenario form:
+numBooks <= bookStock and (userBorrowedBooks + numBooks) <= maxBorrowLimit && flag = true and userBorrowedBooks = userBorrowedBooks + numBooks and bookStock = bookStock – numBooks, Valid borrowing, book count updated 
+||
+numBooks > bookStock && flag = false, Invalid borrowing, insufficient stock, values unchanged 
+|| 
+userBorrowedBooks + numBooks > maxBorrowLimit && flag = false, Invalid borrowing, user has reached borrowing limit, values unchanged 
+||
+numBooks <= 0 && flag = false, Invalid borrowing, book count must be greater than zero, values unchanged
+	end process
+end module

@@ -1,0 +1,5 @@
+        currentTDS > maxTDSThreshold && filterCleaningActive = true, Filter cleaning activated.
+        ||
+        currentTDS < minTDSThreshold && filterCleaningActive = false, Filter cleaning deactivated.
+        ||
+        currentTDS <= maxTDSThreshold && filterCleaningActive = false, No action required.

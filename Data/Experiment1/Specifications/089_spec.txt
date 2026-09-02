@@ -1,0 +1,9 @@
+module SmartEVRegenerativeBrakingControl
+    var currentSpeed, decelerationRate, recoveredEnergy, regenThreshold, efficiencyFactor: real
+    process updateDeceleration(newDeceleration: real) returns (recoveredEnergy: real, currentSpeed: real)
+        functional scenario form:
+        decelerationRate >= regenThreshold && recoveredEnergy = currentSpeed * decelerationRate * efficiencyFactor, output "Deceleration: " + decelerationRate + " km/h/s exceeds threshold " + regenThreshold + " km/h/s. Recovered Energy: " + recoveredEnergy + " kWh.", Regenerative braking activated and energy recovered calculated.
+        ||
+        decelerationRate < regenThreshold && recoveredEnergy = 0, output "Deceleration: " + decelerationRate + " km/h/s below threshold " + regenThreshold + " km/h/s. No energy recovery.", No regenerative braking; energy recovery is 0.
+    end process
+end module

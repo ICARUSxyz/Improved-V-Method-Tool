@@ -1,0 +1,42 @@
+module SplineInterpolator
+type
+  x, y: sequence of real
+  n: int
+  ex: set of {
+    None,
+    NullArgumentException,
+    NoDataException,
+    DimensionMismatchException,
+    NumberIsTooSmallException,
+    NonMonotonicSequenceException,
+    NotFiniteNumberException
+  }
+
+process Interpolate(x, y: sequence of real) outputs: f: function, ex: set
+Functional Scenario Form
+
+x = 0
+        && (ex = NullArgumentException and f = null) ||
+
+
+  length = 0 
+        && (ex = NoDataException and f = null) ||
+
+
+ length = 1
+        && (ex = DimensionMismatchException and f = null) ||
+
+
+  length< 3
+        && (ex = NumberIsTooSmallException and f = null) ||
+
+isFinite=0
+        && (ex = NotFiniteNumberException and f = null) ||
+
+k+1 <= x
+        && (ex = NonMonotonicSequenceException and f = null) ||
+n >= 3 
+        && (ex = None and f ≠ null)
+end_process
+
+end_module

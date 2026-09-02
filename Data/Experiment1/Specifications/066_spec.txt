@@ -1,0 +1,12 @@
+module SmartSolarPanelControl
+    var currentPowerOutput, maxOptimalPower, minOptimalPower: real 
+    var panelTiltAngle: real 
+    process updatePowerOutput(changeAmount: real)
+        functional scenario form:
+        currentPowerOutput >= minOptimalPower && Power output maintained optimally.
+        ||
+        currentPowerOutput < minOptimalPower && panelTiltAngle = panelTiltAngle + 5.0, Panel tilt increased to enhance sunlight absorption.
+        ||
+        currentPowerOutput > maxOptimalPower && panelTiltAngle = panelTiltAngle - 5.0, Panel tilt reduced to prevent overexposure.
+    end process
+end module

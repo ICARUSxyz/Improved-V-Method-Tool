@@ -1,0 +1,5 @@
+        currentTemperature <= maxTemperature && Storage temperature maintained.
+        ||
+        currentTemperature > maxTemperature && coolingSystemActive = true, Cooling system activated.
+        ||
+        currentTemperature < minTemperature && coolingSystemActive = false, Cooling system deactivated.

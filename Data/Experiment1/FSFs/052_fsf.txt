@@ -1,0 +1,5 @@
+currentPressure >= minPressure && log = log ⨁ ("Pressure Updated: " + currentPressure + " bar, Status Normal."), Water pressure updated successfully.
+        ||
+        currentPressure > maxPressure && pumpActive = false, log = log ⨁ ("High Pressure Warning: " + currentPressure + " bar, Reducing Pump Power."), High pressure warning triggered, pump power reduced.
+        ||
+        currentPressure < minPressure && pumpActive = true, log = log ⨁ ("Leak Alert: " + currentPressure + " bar, Inspection Required."), Leak detected, inspection required.

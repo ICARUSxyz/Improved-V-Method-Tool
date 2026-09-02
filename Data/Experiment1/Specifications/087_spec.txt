@@ -1,0 +1,9 @@
+module SmartScooterBatteryControl
+    var currentBattery, batteryCapacity, consumptionRate, lowBatteryThreshold: real
+    process consumeEnergy(energyUsed: real) returns (currentBattery: real, estimatedRange: real)
+        functional scenario form:
+        currentBattery >= lowBatteryThreshold && output "Battery level: " + currentBattery + " kWh, Estimated range: " + estimatedRange + " km.", Energy consumption updated, estimated range calculated normally.
+        ||
+        currentBattery < lowBatteryThreshold && output "ALERT: Battery level is low (" + currentBattery + " kWh). Please recharge soon. Estimated range: " + estimatedRange + " km.", Low battery alert triggered, estimated range provided.
+    end process
+end module

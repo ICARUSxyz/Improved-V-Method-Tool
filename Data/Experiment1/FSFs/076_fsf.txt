@@ -1,0 +1,3 @@
+        currentConsumption <= threshold && totalFee = currentConsumption * baseRate, Total fee calculated as: currentConsumption * baseRate.
+        ||
+        currentConsumption > threshold && totalFee = threshold * baseRate + (currentConsumption - threshold) * (baseRate + penaltyRate), output "Total Consumption: " + currentConsumption + " kWh, Total Fee: $" + totalFee, Total fee calculated as: threshold * baseRate + (currentConsumption - threshold) * (baseRate + penaltyRate).

@@ -1,0 +1,13 @@
+module SmartFertilizerDispenserControl
+    var currentNutrientLevel, minNutrientLevel, maxNutrientLevel: real 
+    var dispensingActive: boolean 
+    process updateNutrientLevel(newNutrientLevel: real) returns (currentNutrientLevel: real, dispensingActive: boolean)
+
+        functional scenario form:
+        currentNutrientLevel < minNutrientLevel && dispensingActive = true, Fertilizer dispenser activated.
+        ||
+        currentNutrientLevel > maxNutrientLevel && dispensingActive = false, Fertilizer dispenser deactivated.
+        ||
+        currentNutrientLevel >= minNutrientLevel && dispensingActive = false, Dispenser remains off.
+    end process
+end module

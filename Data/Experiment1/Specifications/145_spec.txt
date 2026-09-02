@@ -1,0 +1,45 @@
+module RombergIntegrator
+type
+  relativeAccuracy: real           // relAcc
+  absoluteAccuracy: real           // absAcc
+  minimalIterationCount: int       // minIter
+  maximalIterationCount: int       // maxIter
+  min: real
+  max: real
+  maxEval: int
+  evaluations_used: int
+  iterations_used: int         
+  converged_by_value_accuracy: bool
+  converged_by_interval_shrinkage: bool
+  not_converged_by_accuracy: bool
+  ex: set of {
+    None,
+    NullArgumentException,
+    NotStrictlyPositiveException,
+    NumberIsTooSmallException,
+    NumberIsTooLargeException,
+    NotANumberException,
+    NotFiniteNumberException,
+    TooManyEvaluationsException,
+    MaxCountExceededException
+  }
+
+process integrate(f, min, max, maxEval,
+                  relativeAccuracy, absoluteAccuracy,
+                  minimalIterationCount, maximalIterationCount: real)
+       result: real, ex: set of { ... }
+Functional Scenario Form
+  f =0                                       && ex = NullArgumentException ||
+  maxEval <= 0                                      && ex = NotStrictlyPositiveException ||
+  relativeAccuracy <= 0   && ex = NotStrictlyPositiveException ||
+  minimalIterationCount < MIN_ROMBERG_ITER         && ex = NumberIsTooSmallException ||
+  maximalIterationCount > MAX_ROMBERG_ITER         && ex = NumberIsTooLargeException ||
+  minimalIterationCount >= maximalIterationCount    && ex = NumberIsTooSmallException ||
+  isNaN=1                   && ex = NotANumberException ||
+  isInfinite=1           && ex = NotFiniteNumberException ||
+  min >= max                                        && ex = NumberIsTooLargeException ||
+evaluations_used > maxEval        && ex = TooManyEvaluationsException ||
+     iterations_used >= maximalIterationCount                  && ex = MaxCountExceededException ||
+evaluations_used <= maxEval                                                 && ex = None
+end_process
+end_module

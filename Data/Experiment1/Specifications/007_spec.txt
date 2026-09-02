@@ -1,0 +1,13 @@
+module SmartWarehouseInventory
+    var stock, quantity: integer 
+    var restockThreshold, restockAmount: integer 
+    var transactionHistory: sequence of string 
+    process processOrder(quantity: integer) flag: boolean
+        functional scenario form:
+        quantity <= stock && flag = true and stock = stock – quantity and transactionHistory = transactionHistory ⨁ ("Order processed") and if stock < restockThreshold then stock = stock + restockAmount, Valid order, stock updated, check for restocking
+        ||
+        quantity > stock && flag = false, Invalid order, insufficient stock, values unchanged
+        ||
+        quantity <= 0 && flag = false, Invalid order, quantity must be positive, values unchanged
+    end process
+end module

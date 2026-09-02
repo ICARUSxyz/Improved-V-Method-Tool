@@ -1,0 +1,3 @@
+        currentUsers + numUsers <= maxCapacity && currentUsers = currentUsers + numUsers, log = log ⨁ ("Members Started Using Equipment | New Count: " + currentUsers + "/" + maxCapacity), Members successfully started using the equipment.
+        ||
+        currentUsers + numUsers > maxCapacity && log = log ⨁ ("Overcrowding Alert: Suggested alternative exercises."), Overcrowding warning triggered, suggesting alternatives.

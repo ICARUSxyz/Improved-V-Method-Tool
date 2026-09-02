@@ -1,0 +1,13 @@
+module SmartDataCenterCooling
+    var currentTemperature, maxTemperature, optimalMinTemperature, optimalMaxTemperature: real 
+    var coolingActive: boolean 
+    var log: sequence of string 
+    process updateTemperature(changeAmount: real)   
+        functional scenario form:
+        currentTemperature <= maxTemperature && log = log ⨁ ("Temperature is Optimal: " + currentTemperature + "°C."), Temperature updated successfully.
+        ||
+        currentTemperature > maxTemperature && coolingActive = true, log = log ⨁ ("Overheating Warning: " + currentTemperature + "°C, Increasing Cooling Power."), Overheating warning triggered, cooling increased.
+        ||
+        currentTemperature < optimalMinTemperature && coolingActive = false, log = log ⨁ ("Low Temperature Alert: " + currentTemperature + "°C, Reducing Cooling for Energy Saving."), Low temperature alert triggered, cooling reduced.
+    end process
+end module

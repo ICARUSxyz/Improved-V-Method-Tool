@@ -1,0 +1,9 @@
+module SmartRainfallMonitoring
+    var currentRainfall, rainfallThreshold: real
+    process updateRainfall(newRainfall: real) returns (currentRainfall: real)
+        functional scenario form:
+        currentRainfall > rainfallThreshold && output "ALERT: Heavy rain detected (" + currentRainfall + " mm/h). Please take precautionary measures.", Heavy rain alert is triggered.
+        ||
+        currentRainfall <= rainfallThreshold && output "Rainfall intensity is normal (" + currentRainfall + " mm/h).", Rainfall intensity is normal.
+    end process
+end module

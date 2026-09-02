@@ -1,0 +1,12 @@
+module IndustrialPressureMonitoring
+    var currentPressure, maxPressure, minPressure: real 
+    var pressureLog: sequence of string 
+    process updatePressure(changeAmount: real)
+        functional scenario form:
+        currentPressure >= minPressure && pressureLog = pressureLog ⨁ ("Pressure Updated: " + currentPressure + " bar"), Pressure updated successfully.
+        ||
+        currentPressure > maxPressure && pressureLog = pressureLog ⨁ ("High Pressure Warning: " + currentPressure + " bar"), High pressure warning triggered.
+        ||
+        currentPressure < minPressure && pressureLog = pressureLog ⨁ ("Leakage Alert: " + currentPressure + " bar"), Leakage alert triggered.
+    end process
+end module

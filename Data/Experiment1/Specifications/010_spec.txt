@@ -1,0 +1,17 @@
+module OnlineExamGrading
+    var scores: sequence of (string, real) 
+    var rankingHistory: sequence of string 
+    process recordScore(name: string, score: real) flag: boolean
+        functional scenario form:
+        score >= 0 and score <= 90 && flag = true and scores = scores ⨁ (name, score) and rankingHistory = rankingHistory ⨁ ("Recorded: " + name + " - " + score), Valid score, recorded successfully
+        ||
+score > 90 and score <= 100 && flag = true and scores = scores ⨁ (name, score) and rankingHistory = rankingHistory ⨁ ("Recorded: " + name + " - " + score), Valid score, recorded successfully
+        ||
+        score < 0 || score > 100 && flag = false, Invalid score, rejected
+    end process
+
+    process rankStudents() 		
+        functional scenario form:
+        (|scores| > 0) && scores = sort(scores, descending)∧ rankingHistory = rankingHistory ⨁ "Ranking updated", Students ranked successfully
+    end process
+end module

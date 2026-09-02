@@ -1,0 +1,36 @@
+module MullerSolver2
+  type
+    var min, max, start: real      // search range [min, max] and optional start
+    var maxEval: integer           // maximum allowed evaluations
+    var relAcc, absAcc, fAcc: real // relative, absolute, and function-value accuracy
+    var r: real                    // returned root candidate
+    ex: set of {None, NullArgument, BadSequence, TooManyEvaluations} // outcome tag
+
+process solve(f, min, max, start, maxEval, relAcc, absAcc, fAcc: real) r: real, ex: set of {None, NullArgument, BadSequence, TooManyEvaluations}
+    functional scenario form:
+    f = null && ex = NullArgument
+    ||
+    min > max && ex = BadSequence
+    ||
+yMin = 0 && ex = None && r = min
+    ||
+and yMax = 0 && ex = None && r = max
+    ||
+and yStart = 0 && ex = None && r = start
+    ||
+and yStart ≠ 0 && ex = None
+        && r ∈ [min, max]   // proceed from start with Müller iterations
+    ||
+xNew - xPrev <= tol     && ex = None
+       && r = xNew && |f(r)| <= fAcc
+    ||
+xProj - xPrev <= tol      && ex = None
+       && r = xProj && |f(r)| <= fAcc
+    ||
+xSafe - xPrev <= tol
+      && ex = None
+       && r = xSafe && |f(r)| <= fAcc
+    ||
+    evaluations > maxEval && ex = TooManyEvaluations
+end process
+end module

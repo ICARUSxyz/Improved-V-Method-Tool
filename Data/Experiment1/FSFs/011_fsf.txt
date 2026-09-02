@@ -1,0 +1,3 @@
+        severityScore >= 0 and severityScore <= 100 && flag = true and patients = patients ⨁ (name, severityScore, currentTime)and treatmentLog = treatmentLog ⨁ ("Admitted: " + name + " - Severity " + severityScore), Valid patient, admitted successfully
+        ||
+        severityScore < 0 || severityScore > 100 && flag = false, Invalid severity score, admission rejected

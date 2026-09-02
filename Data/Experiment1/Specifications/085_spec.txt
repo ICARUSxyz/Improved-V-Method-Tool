@@ -1,0 +1,11 @@
+module SmartHeartRateMonitoring
+    var currentHeartRate, minHeartRate, maxHeartRate: real
+    process updateHeartRate(newHeartRate: real) returns (currentHeartRate: real)      
+        functional scenario form:
+        currentHeartRate < minHeartRate && output "ALERT: Heart rate is too low (" + currentHeartRate + " BPM).", Low heart rate alert triggered.
+        ||
+        currentHeartRate > maxHeartRate && output "ALERT: Heart rate is too high (" + currentHeartRate + " BPM).", High heart rate alert triggered.
+        ||
+        currentHeartRate >= minHeartRate && output "Heart rate is optimal (" + currentHeartRate + " BPM).", Heart rate is within the optimal range.
+    end process
+end module

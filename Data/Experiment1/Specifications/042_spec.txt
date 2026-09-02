@@ -1,0 +1,12 @@
+module WindTurbineBladeAdjustment
+    var currentWindSpeed, maxWindSpeed, minWindSpeed, bladeAngle: real 
+    var log: sequence of string 
+    process updateWindSpeed(changeAmount: real)
+        functional scenario form:
+        currentWindSpeed <= maxWindSpeed  && bladeAngle = 30.0, log = log ⨁ ("Wind Speed Updated: " + currentWindSpeed + " m/s, Blade at " + bladeAngle + "°"), Wind speed updated, blade adjusted.
+        ||
+        currentWindSpeed > maxWindSpeed && bladeAngle = 75.0, log = log ⨁ ("High Wind Warning: " + currentWindSpeed + " m/s, Adjusting Blade to " + bladeAngle + "°"), High wind warning triggered, blade adjusted for safety.
+        ||
+        currentWindSpeed < minWindSpeed && bladeAngle = 15.0, log = log ⨁ ("Low Wind Alert: " + currentWindSpeed + " m/s, Adjusting Blade to " + bladeAngle + "°"), Low wind alert triggered, blade adjusted for efficiency.
+    end process
+end module

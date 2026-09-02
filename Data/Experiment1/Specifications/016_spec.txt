@@ -1,0 +1,19 @@
+module OnlineCourseEnrollment
+    var capacity: integer 
+    var enrolledStudents: sequence of string 
+    var waitingList: sequence of string 
+    var enrollmentLog: sequence of string 
+    process enrollStudent(studentName: string) flag: boolean
+        functional scenario form:
+        |enrolledStudents| < capacity && flag = true and enrolledStudents = enrolledStudents ⨁ studentNameand enrollmentLog = enrollmentLog ⨁ ("Enrolled: " + studentName), Student enrolled successfully.
+        ||
+        |enrolledStudents| >= capacity && flag = false and waitingList = waitingList ⨁ studentNameand enrollmentLog = enrollmentLog ⨁ ("Waiting list: " + studentName), Course full! Student added to waiting list.
+    end process
+
+    process dropStudent(studentName: string) 
+        functional scenario form:
+        (studentName ∈ enrolledStudents) && enrolledStudents = remove(enrolledStudents, studentName)∧ enrollmentLog = enrollmentLog ⨁ "Student dropped"∧ (if |waitingList| > 0 then enrolledStudents = enrolledStudents ⨁ first(waitingList)), Student dropped, waiting list updated.
+        OR
+        (studentName ∉ enrolledStudents) && Student not enrolled, no action taken.
+    end process
+end module

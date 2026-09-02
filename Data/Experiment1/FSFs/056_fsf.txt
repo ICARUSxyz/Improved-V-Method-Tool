@@ -1,0 +1,5 @@
+        currentMoisture >= minMoisture && currentMoisture = currentMoisture + changeAmount, Soil moisture updated successfully.
+        ||
+        currentMoisture < minMoisture && irrigationActive = true, log = log ⨁ ("Dry Soil Alert: " + currentMoisture + "%, Activating Irrigation."), Dry soil detected, irrigation activated.
+        ||
+        currentMoisture > maxMoisture && irrigationActive = false, log = log ⨁ ("Excess Moisture Alert: " + currentMoisture + "%, Pausing Irrigation."), Excess moisture detected, irrigation paused.

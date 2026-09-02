@@ -1,0 +1,12 @@
+module SmartWellWaterControlEx
+    var currentWaterLevel, maxWaterLevel, minWaterLevel: real 
+    var pumpActive: boolean 
+    process updateWaterLevel(changeAmount: real)
+        functional scenario form:
+        currentWaterLevel <= maxWaterLevel && pumpActive = pumpActive, Water level maintained.
+        ||
+        currentWaterLevel < minWaterLevel && pumpActive = true, Water pump activated.
+        ||
+        currentWaterLevel > maxWaterLevel && pumpActive = false, Water pump deactivated.
+    end process
+end module

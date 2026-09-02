@@ -1,0 +1,3 @@
+        availableSpaces > 0 && availableSpaces = availableSpaces – 1, log = log ⨁ (vehicle + " parked | Remaining: " + availableSpaces + "/" + totalSpaces), Vehicle parked successfully.
+        ||
+        availableSpaces = 0 && waitlist = waitlist ⨁ vehicle, log = log ⨁ (vehicle + " added to waitlist | No spaces available."), Vehicle added to waitlist.

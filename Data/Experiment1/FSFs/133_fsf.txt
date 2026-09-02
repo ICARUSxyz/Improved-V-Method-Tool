@@ -1,0 +1,5 @@
+solutionCallback notin{0} && result = void, reset callback before parsing
+||
+d inset{1,3,5,7,9} && solutionCallback := d && result = void, register solution callback
+||
+d inset{2,4} && pivotSelection := d && result = void, register pivot rule

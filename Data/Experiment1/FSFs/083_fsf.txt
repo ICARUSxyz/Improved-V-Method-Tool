@@ -1,0 +1,5 @@
+        currentPH < optimalLow && output "ALERT: pH is too low (" + currentPH + "). Dosing alkaline chemicals to raise pH.", pH is below optimal, trigger alkaline dosing.
+        ||
+        currentPH > optimalHigh && output "ALERT: pH is too high (" + currentPH + "). Dosing acidic chemicals to lower pH.", pH is above optimal, trigger acidic dosing.
+        ||
+        currentPH <= optimalHigh && output "pH is optimal (" + currentPH + "). No chemical dosing required.", pH is within optimal range.

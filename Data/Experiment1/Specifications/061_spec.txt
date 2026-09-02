@@ -1,0 +1,12 @@
+module SmartGreenhouseTemperatureControl
+    var currentTemperature, maxTemperature, minTemperature: real  
+    var coolingActive, heatingActive: boolean 
+    process updateTemperature(changeAmount: real)
+        functional scenario form:
+        currentTemperature <= maxTemperature && currentTemperature = currentTemperature + changeAmount, coolingActive = false, heatingActive = false, Temperature maintained within optimal range.
+        ||
+        currentTemperature > maxTemperature && coolingActive = true, heatingActive = false, Cooling system activated.
+        ||
+        currentTemperature < minTemperature && coolingActive = false, heatingActive = true, Heating system activated.
+    end process
+end module

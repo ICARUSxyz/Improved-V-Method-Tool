@@ -1,0 +1,17 @@
+age > 18 and age < 60 and normal_price >= 1 && 
+final_price = normal_price and ticket_type = adult
+||
+age >= 80 and normal_price >= 1 && 
+final_price = normal_price ∗ 0 and ticket_type = free
+||
+age >= 0 and age <= 12 and normal_price >= 1 && 
+final_price = normal_price ∗ 0.5 and ticket_type = child
+||
+age >= 70 and age < 80 and normal_price >= 1 && 
+final_price = normal_price ∗ 0.5 and ticket_type = senior_70_79
+||
+age > 12 and age <= 18 and normal_price >= 1 && 
+final_price = normal_price ∗ 0.75 and ticket_type = teen
+||
+age >= 60 and age < 70 and normal_price >= 1 && 
+final_price = normal_price ∗ 0.75 and ticket_type = senior_60_69

@@ -1,0 +1,7 @@
+        speed <= speedLimit && fineAmount = 0, No violation.
+        ||
+        speed - speedLimit <= 10 && fineAmount = 50 and violationLog = violationLog ⨁ ("Minor violation: " + licensePlate), Minor violation, fine: $50.
+        ||
+        speed - speedLimit <= 30 && fineAmount = 200 and violationLog = violationLog ⨁ ("Moderate violation: " + licensePlate), Moderate violation, fine: $200.
+        ||
+        speed - speedLimit > 30 && fineAmount = 500 andviolationLog = violationLog ⨁ ("Severe violation: " + licensePlate), Severe violation, fine: $500.

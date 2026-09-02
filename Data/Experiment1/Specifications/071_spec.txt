@@ -1,0 +1,17 @@
+module SmartTreadmillUsage
+    var currentSpeed, incline, totalDistance, totalCalories: real
+    process updateSpeed(newSpeed: real)
+        functional scenario form:
+            newSpeed > 0 && Speed updated successfully.
+    end process
+
+    process updateIncline(newIncline: real)
+        functional scenario form:
+            (newIncline ≥ 0) && Incline updated successfully.
+    end process
+
+    process addDistance(distance: real) totalCalories: real
+        functional scenario form:
+            (distance > 0) && totalDistance = totalDistance + distance, totalCalories = totalCalories + distance * (1.2 * currentSpeed + 0.5 * incline), Distance added and calories updated.
+    end process
+end module

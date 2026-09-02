@@ -1,0 +1,5 @@
+        currentTemperature >= freezingPoint && Road temperature maintained.
+        ||
+        currentTemperature < freezingPoint && saltDispersionActive = true, Salt dispersion activated.
+        ||
+        currentTemperature > stopSaltDispersionTemp && saltDispersionActive = false Salt dispersion deactivated.
