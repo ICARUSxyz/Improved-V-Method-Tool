@@ -10,6 +10,8 @@ The project provides the experimental data, evaluation results, and tool support
 
 ```text
 .
+├── Appendices/
+│   └── Appendices.pdf              # Appendices of the paper
 ├── Data/
 │   ├── Experiment1/
 │   │   ├── Codes/
